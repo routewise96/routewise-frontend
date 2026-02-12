@@ -1,24 +1,38 @@
 "use client"
 
 import { useState } from "react"
-import { Compass, Search, Bell, Plus, LogIn } from "lucide-react"
+import { Compass, Search, Bell, Plus, LogIn, LogOut, Settings } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { LoginDialog } from "@/components/auth/LoginDialog"
 import { RegisterDialog } from "@/components/auth/RegisterDialog"
 import { CreatePostDialog } from "@/components/CreatePostDialog"
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu"
 
 interface HeaderProps {
   onPostCreated?: () => void
 }
 
 export function Header({ onPostCreated }: HeaderProps = {}) {
-  const { user, isLoading } = useAuth()
+  const { user, isLoading, logout } = useAuth()
+  const router = useRouter()
   const [loginOpen, setLoginOpen] = useState(false)
   const [registerOpen, setRegisterOpen] = useState(false)
   const [createPostOpen, setCreatePostOpen] = useState(false)
+
+  function handleLogout() {
+    logout()
+    router.push("/")
+  }
 
   function switchToRegister() {
     setLoginOpen(false)
@@ -81,23 +95,48 @@ export function Header({ onPostCreated }: HeaderProps = {}) {
               <Bell className="h-5 w-5" />
             </Link>
 
-            {/* Auth: avatar or login button */}
             {isLoading ? (
               <div className="ml-1 h-9 w-9 rounded-full bg-secondary animate-pulse" />
             ) : user ? (
-              <Link
-                href="/profile"
-                className="ml-1 h-9 w-9 overflow-hidden rounded-full ring-2 ring-border transition-all hover:ring-primary"
-                aria-label="Профиль"
-              >
-                <Image
-                  src={user.avatarUrl || "https://i.pravatar.cc/150?img=1"}
-                  alt="Ваш аватар"
-                  width={36}
-                  height={36}
-                  className="h-full w-full object-cover"
-                />
-              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    className="ml-1 h-9 w-9 overflow-hidden rounded-full ring-2 ring-border transition-all hover:ring-primary"
+                    aria-label="Меню профиля"
+                  >
+                    <Image
+                      src={user.avatarUrl || "https://i.pravatar.cc/150?img=1"}
+                      alt="Ваш аватар"
+                      width={36}
+                      height={36}
+                      className="h-full w-full object-cover"
+                    />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem className="cursor-default flex-col items-start py-2">
+                    <p className="font-semibold text-foreground">{user.username}</p>
+                    <p className="text-xs text-muted-foreground">{user.email}</p>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/profile" className="cursor-pointer">
+                      Мой профиль
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/settings" className="cursor-pointer">
+                      <Settings className="mr-2 h-4 w-4" />
+                      Настройки
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout} className="text-destructive cursor-pointer">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Выйти
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <Button
                 variant="default"
