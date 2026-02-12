@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react"
 import useSWR from "swr"
+import Link from "next/link"
 import { ChevronDown, Loader2, LogIn } from "lucide-react"
 import { toast } from "sonner"
 
@@ -305,22 +306,34 @@ export default function FeedPage() {
                   Обновить страницу
                 </Button>
               </div>
+            ) : allPosts.length === 0 && !user ? (
+              <div className="flex flex-col items-center justify-center py-20 text-center">
+                <p className="text-xl font-semibold text-foreground mb-2">
+                  Добро пожаловать в RouteWise
+                </p>
+                <p className="text-sm text-muted-foreground mb-6 max-w-sm">
+                  Социальная сеть путешественников. Войдите или зарегистрируйтесь, чтобы видеть ленту и делиться постами.
+                </p>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  <Button asChild>
+                    <Link href="/login">
+                      <LogIn className="mr-1.5 h-4 w-4" />
+                      Войти
+                    </Link>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <Link href="/register">Регистрация</Link>
+                  </Button>
+                </div>
+              </div>
             ) : allPosts.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <p className="text-lg font-semibold text-foreground mb-2">
                   Лента пуста
                 </p>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {user
-                    ? "Подпишитесь на путешественников, чтобы видеть их посты."
-                    : "Войдите, чтобы увидеть посты от путешественников."}
+                  Подпишитесь на путешественников, чтобы видеть их посты.
                 </p>
-                {!user && (
-                  <Button onClick={() => setLoginOpen(true)}>
-                    <LogIn className="mr-1.5 h-4 w-4" />
-                    Войти
-                  </Button>
-                )}
               </div>
             ) : (
               <>

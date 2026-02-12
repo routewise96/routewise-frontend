@@ -1,9 +1,16 @@
 "use client"
 
 import { useState } from "react"
-import { Compass, Search, Bell, Plus, LogIn } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { Compass, Search, Bell, Plus, LogIn, User, LogOut } from "lucide-react"
 import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { LoginDialog } from "@/components/auth/LoginDialog"
 import { RegisterDialog } from "@/components/auth/RegisterDialog"
@@ -15,7 +22,8 @@ interface HeaderProps {
 }
 
 export function Header({ onPostCreated }: HeaderProps = {}) {
-  const { user, isLoading } = useAuth()
+  const router = useRouter()
+  const { user, isLoading, logout } = useAuth()
   const [loginOpen, setLoginOpen] = useState(false)
   const [registerOpen, setRegisterOpen] = useState(false)
   const [createPostOpen, setCreatePostOpen] = useState(false)
@@ -85,18 +93,40 @@ export function Header({ onPostCreated }: HeaderProps = {}) {
             {isLoading ? (
               <div className="ml-1 h-9 w-9 rounded-full bg-secondary animate-pulse" />
             ) : user ? (
-              <Link
-                href="/profile"
-                className="ml-1 block h-9 w-9 overflow-hidden rounded-full ring-2 ring-border transition-all hover:ring-primary"
-                aria-label="Профиль"
-              >
-                <Avatar className="h-9 w-9">
-                  <AvatarImage src={user.avatarUrl} alt="Ваш аватар" />
-                  <AvatarFallback className="text-xs font-medium bg-muted text-foreground">
-                    {(user.username || "?").slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button
+                    type="button"
+                    className="ml-1 block h-9 w-9 overflow-hidden rounded-full ring-2 ring-border transition-all hover:ring-primary focus:outline-none focus:ring-2 focus:ring-primary"
+                    aria-label="Меню пользователя"
+                  >
+                    <Avatar className="h-9 w-9">
+                      <AvatarImage src={user.avatarUrl} alt="Ваш аватар" />
+                      <AvatarFallback className="text-xs font-medium bg-muted text-foreground">
+                        {(user.username || "?").slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <Link href="/profile" className="flex items-center gap-2 cursor-pointer">
+                      <User className="h-4 w-4" />
+                      Профиль
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-destructive focus:text-destructive cursor-pointer"
+                    onSelect={() => {
+                      logout()
+                      router.push("/")
+                    }}
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Выйти
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <Button
                 variant="default"

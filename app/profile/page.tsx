@@ -20,6 +20,7 @@ import {
 import { toast } from "sonner"
 
 import { AppShell } from "@/components/AppShell"
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { PostCard, type Post } from "@/components/PostCard"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
@@ -144,20 +145,9 @@ export default function ProfilePage() {
     )
   }
 
-  if (!user) {
-    return (
-      <AppShell>
-        <div className="mx-auto max-w-2xl px-4 py-20 text-center">
-          <Users className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-          <h2 className="text-xl font-bold text-foreground mb-2">Войдите в аккаунт</h2>
-          <p className="text-muted-foreground mb-6">Чтобы просмотреть свой профиль, необходимо авторизоваться.</p>
-          <Button onClick={() => router.push("/")}>На главную</Button>
-        </div>
-      </AppShell>
-    )
-  }
-
   return (
+    <ProtectedRoute>
+    {user ? (
     <AppShell>
       <div className="mx-auto max-w-2xl px-4 py-6">
         {/* Profile Header */}
@@ -334,5 +324,7 @@ export default function ProfilePage() {
         onProfileUpdated={() => mutateProfile()}
       />
     </AppShell>
+    ) : null}
+    </ProtectedRoute>
   )
 }
