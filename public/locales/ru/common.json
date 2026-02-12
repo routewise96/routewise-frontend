@@ -49,5 +49,23 @@
     "notifications": "Уведомления",
     "map": "Карта",
     "bookings": "Бронирования"
+  },
+  "profile": {
+    "posts": "Посты",
+    "saved": "Сохранённые",
+    "followers": "Подписчики",
+    "following": "Подписки",
+    "media": "Медиа",
+    "edit": "Редактировать",
+    "follow": "Подписаться",
+    "unfollow": "Отписаться",
+    "noPosts": "Нет постов",
+    "noSaved": "Нет сохранённых",
+    "noFollowers": "Нет подписчиков",
+    "noFollowing": "Нет подписок",
+    "loadMore": "Загрузить ещё",
+    "userNotFound": "Пользователь не найден",
+    "editProfile": "Редактировать профиль",
+    "profileUpdated": "Профиль обновлён"
   }
 }

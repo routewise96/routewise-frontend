@@ -49,5 +49,23 @@
     "notifications": "Notifications",
     "map": "Map",
     "bookings": "Bookings"
+  },
+  "profile": {
+    "posts": "Posts",
+    "saved": "Saved",
+    "followers": "Followers",
+    "following": "Following",
+    "media": "Media",
+    "edit": "Edit",
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+    "noPosts": "No posts",
+    "noSaved": "No saved posts",
+    "noFollowers": "No followers",
+    "noFollowing": "Not following anyone",
+    "loadMore": "Load more",
+    "userNotFound": "User not found",
+    "editProfile": "Edit profile",
+    "profileUpdated": "Profile updated"
   }
 }

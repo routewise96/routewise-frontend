@@ -1,0 +1,8 @@
+export { ProfileHeader } from "./ProfileHeader"
+export { ProfileTabs } from "./ProfileTabs"
+export { PostsGrid } from "./PostsGrid"
+export { FollowersList } from "./FollowersList"
+export { FollowingList } from "./FollowingList"
+export { EditProfileDialog } from "./EditProfileDialog"
+export { FollowButton } from "./FollowButton"
+export { UserNotFound } from "./UserNotFound"
