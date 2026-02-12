@@ -20,8 +20,7 @@ import {
 import { toast } from "sonner"
 
 import { AppShell } from "@/components/AppShell"
-import { ProtectedRoute } from "@/components/auth/ProtectedRoute"
-import { useAuth } from "@/components/auth/AuthProvider"
+import { ProtectedRoute, useAuth } from "@/features/auth"
 import { PostCard, type Post } from "@/components/PostCard"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"

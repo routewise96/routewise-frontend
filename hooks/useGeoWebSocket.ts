@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState, useCallback } from "react"
-import { useAuth } from "@/components/auth/AuthProvider"
+import { useAuth } from "@/features/auth"
 
 export interface GeoUser {
   userId: number

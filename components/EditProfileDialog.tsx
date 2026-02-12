@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { useAuth } from "@/components/auth/AuthProvider"
+import { useAuth } from "@/features/auth"
 import { api } from "@/lib/api"
 
 const profileSchema = z.object({

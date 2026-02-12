@@ -11,9 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useAuth } from "@/components/auth/AuthProvider"
-import { LoginDialog } from "@/components/auth/LoginDialog"
-import { RegisterDialog } from "@/components/auth/RegisterDialog"
+import { useAuth, LoginDialog, RegisterDialog } from "@/features/auth"
 import { CreatePostDialog } from "@/components/CreatePostDialog"
 import { Button } from "@/components/ui/button"
 

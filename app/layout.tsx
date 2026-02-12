@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/sonner"
-import { AuthProvider } from "@/components/auth/AuthProvider"
+import { AuthProvider } from "@/features/auth"
 import { QueryProvider } from "@/app/providers/QueryProvider"
 import { I18nProvider } from "@/app/providers/I18nProvider"
 

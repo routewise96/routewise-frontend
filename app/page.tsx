@@ -7,7 +7,7 @@ import { ChevronDown, Loader2, LogIn } from "lucide-react"
 import { toast } from "sonner"
 
 import { api } from "@/lib/api"
-import { useAuth } from "@/components/auth/AuthProvider"
+import { useAuth } from "@/features/auth"
 import { Header } from "@/components/Header"
 import { Sidebar } from "@/components/Sidebar"
 import { BottomNav } from "@/components/BottomNav"
@@ -18,8 +18,7 @@ import {
 } from "@/components/RecommendationsPanel"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
-import { LoginDialog } from "@/components/auth/LoginDialog"
-import { RegisterDialog } from "@/components/auth/RegisterDialog"
+import { LoginDialog, RegisterDialog } from "@/features/auth"
 
 // --- Helpers to normalize API response ---
 

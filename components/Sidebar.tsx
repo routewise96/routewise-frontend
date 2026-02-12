@@ -10,7 +10,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useAuth } from "@/components/auth/AuthProvider"
+import { useAuth } from "@/features/auth"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const NAV_ITEMS = [

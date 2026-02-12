@@ -1,55 +1,17 @@
 "use client"
 
-import { useState, Suspense } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { Loader2, Compass } from "lucide-react"
-import { toast } from "sonner"
+import { Suspense } from "react"
+import { useTranslations } from "next-intl"
 import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
+import { Compass } from "lucide-react"
 
-import { useAuth } from "@/components/auth/AuthProvider"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
+import { LoginForm } from "@/features/auth"
 
-const loginSchema = z.object({
-  email: z.string().email("Введите корректный email"),
-  password: z.string().min(6, "Минимум 6 символов"),
-})
-
-type LoginForm = z.infer<typeof loginSchema>
-
-function LoginForm() {
-  const router = useRouter()
+function LoginPageContent() {
+  const t = useTranslations("auth")
   const searchParams = useSearchParams()
   const redirect = searchParams.get("redirect") || "/"
-  const { login } = useAuth()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginForm>({
-    resolver: zodResolver(loginSchema),
-  })
-
-  async function onSubmit(data: LoginForm) {
-    setIsSubmitting(true)
-    try {
-      await login(data.email, data.password)
-      toast.success("Вы успешно вошли!")
-      router.replace(redirect)
-    } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : "Ошибка входа. Попробуйте ещё раз."
-      )
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background px-4">
@@ -62,69 +24,19 @@ function LoginForm() {
         </div>
         <span className="text-lg font-bold">RouteWise</span>
       </Link>
-
       <div className="w-full max-w-sm space-y-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground">Вход в аккаунт</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Введите email и пароль
-          </p>
+          <h1 className="text-2xl font-bold text-foreground">{t("loginTitle")}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{t("loginSubtitle")}</p>
         </div>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="login-email" className="text-foreground">
-              Email
-            </Label>
-            <Input
-              id="login-email"
-              type="email"
-              placeholder="you@example.com"
-              {...register("email")}
-              className="bg-secondary border-border"
-            />
-            {errors.email && (
-              <p className="text-xs text-destructive">{errors.email.message}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="login-password" className="text-foreground">
-              Пароль
-            </Label>
-            <Input
-              id="login-password"
-              type="password"
-              placeholder="Минимум 6 символов"
-              {...register("password")}
-              className="bg-secondary border-border"
-            />
-            {errors.password && (
-              <p className="text-xs text-destructive">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-
-          <Button type="submit" disabled={isSubmitting} className="w-full">
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Вход...
-              </>
-            ) : (
-              "Войти"
-            )}
-          </Button>
-        </form>
-
+        <LoginForm redirectTo={redirect} />
         <p className="text-center text-sm text-muted-foreground">
-          Нет аккаунта?{" "}
+          {t("noAccount")}{" "}
           <Link
-            href={`/register${redirect !== "/" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`}
+            href={redirect !== "/" ? `/register?redirect=${encodeURIComponent(redirect)}` : "/register"}
             className="font-semibold text-primary hover:text-primary/80"
           >
-            Зарегистрироваться
+            {t("register")}
           </Link>
         </p>
       </div>
@@ -141,7 +53,7 @@ export default function LoginPage() {
         </div>
       }
     >
-      <LoginForm />
+      <LoginPageContent />
     </Suspense>
   )
 }

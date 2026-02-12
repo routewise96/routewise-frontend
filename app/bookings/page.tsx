@@ -1,7 +1,7 @@
 "use client"
 
 import { AppShell } from "@/components/AppShell"
-import { ProtectedRoute } from "@/components/auth/ProtectedRoute"
+import { ProtectedRoute } from "@/features/auth"
 
 export default function BookingsPage() {
   return (
