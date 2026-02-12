@@ -8,10 +8,10 @@ import {
   Settings,
   LogIn,
 } from "lucide-react"
-import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/components/auth/AuthProvider"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const NAV_ITEMS = [
   { icon: Home, label: "Главная", href: "/" },
@@ -62,13 +62,12 @@ export function Sidebar() {
             href="/profile"
             className="flex items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-secondary"
           >
-            <Image
-              src={user.avatarUrl || "https://i.pravatar.cc/150?img=1"}
-              alt="Ваш профиль"
-              width={40}
-              height={40}
-              className="h-10 w-10 rounded-full object-cover"
-            />
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={user.avatarUrl} alt="Ваш профиль" />
+              <AvatarFallback className="text-xs font-medium bg-muted text-foreground">
+                {(user.username || "?").slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
             <div className="flex-1 min-w-0">
               <p className="truncate text-sm font-semibold text-foreground">
                 {user.username}

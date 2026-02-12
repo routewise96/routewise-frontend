@@ -28,19 +28,19 @@ function normalizePost(raw: Record<string, unknown>): Post {
     username:
       (raw.username as string) ||
       ((raw.author as Record<string, unknown>)?.username as string) ||
-      "traveler",
+      "",
     avatarUrl:
       (raw.avatarUrl as string) ||
       (raw.avatar_url as string) ||
       ((raw.author as Record<string, unknown>)?.avatarUrl as string) ||
       ((raw.author as Record<string, unknown>)?.avatar_url as string) ||
-      `https://i.pravatar.cc/150?img=${((raw.id as number) ?? 0) % 70}`,
+      "",
     location: (raw.location as string) || "",
     timestamp: (raw.timestamp as string) || (raw.created_at as string) || "",
     imageUrl:
       (raw.imageUrl as string) ||
       (raw.image_url as string) ||
-      `https://picsum.photos/600/400?random=${raw.id}`,
+      "",
     caption: (raw.caption as string) || (raw.text as string) || "",
     hashtags: (raw.hashtags as string[]) || (raw.tags as string[]) || [],
     likes: (raw.likes as number) || (raw.likes_count as number) || 0,
@@ -55,10 +55,7 @@ function normalizeDestination(raw: Record<string, unknown>): Destination {
     id: (raw.id as number) ?? 0,
     name: (raw.name as string) || "",
     country: (raw.country as string) || "",
-    imageUrl:
-      (raw.imageUrl as string) ||
-      (raw.image_url as string) ||
-      `https://picsum.photos/112/112?random=${raw.id}`,
+    imageUrl: (raw.imageUrl as string) || (raw.image_url as string) || "",
     rating: (raw.rating as number) || 0,
   }
 }

@@ -4,9 +4,9 @@ import { useState, useRef, useEffect, type ChangeEvent } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { Camera, Loader2, X } from "lucide-react"
-import Image from "next/image"
+import { Camera, Loader2 } from "lucide-react"
 import { toast } from "sonner"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 import {
   Dialog,
@@ -101,7 +101,7 @@ export function EditProfileDialog({
     }
   }
 
-  const avatarSrc = preview || user?.avatarUrl || "https://i.pravatar.cc/150?img=1"
+  const avatarSrc = preview || user?.avatarUrl
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -120,13 +120,12 @@ export function EditProfileDialog({
               onClick={() => fileRef.current?.click()}
               className="relative group"
             >
-              <Image
-                src={avatarSrc}
-                alt="Аватар"
-                width={80}
-                height={80}
-                className="h-20 w-20 rounded-full object-cover ring-2 ring-border"
-              />
+              <Avatar className="h-20 w-20 ring-2 ring-border">
+                <AvatarImage src={avatarSrc ?? undefined} alt="Аватар" />
+                <AvatarFallback className="text-lg font-medium bg-muted text-foreground">
+                  {(user?.username || "?").slice(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
               <div className="absolute inset-0 flex items-center justify-center rounded-full bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity">
                 <Camera className="h-6 w-6 text-foreground" />
               </div>

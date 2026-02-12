@@ -4,6 +4,7 @@ import { useState, useCallback, use } from "react"
 import useSWR from "swr"
 import Image from "next/image"
 import Link from "next/link"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Users, UserCheck, UserPlus, Grid3X3, Loader2 } from "lucide-react"
 import { toast } from "sonner"
 
@@ -142,13 +143,12 @@ export default function UserProfilePage({ params }: { params: Promise<{ id: stri
       <div className="mx-auto max-w-2xl px-4 py-6">
         {/* Profile Header */}
         <div className="flex flex-col items-center gap-4 pb-6">
-          <Image
-            src={profile.avatarUrl || "https://i.pravatar.cc/150?img=2"}
-            alt={profile.username || "Пользователь"}
-            width={96}
-            height={96}
-            className="h-24 w-24 rounded-full object-cover ring-4 ring-border"
-          />
+          <Avatar className="h-24 w-24 ring-4 ring-border">
+            <AvatarImage src={profile.avatarUrl} alt={profile.username || "Пользователь"} />
+            <AvatarFallback className="text-2xl font-medium bg-muted text-foreground">
+              {(profile.username || "?").slice(0, 2).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
           <div className="text-center">
             <h1 className="text-xl font-bold text-foreground">{profile.username}</h1>
             <p className="text-sm text-muted-foreground">@{profile.username}</p>
@@ -240,13 +240,12 @@ export default function UserProfilePage({ params }: { params: Promise<{ id: stri
                     href={`/profile/${u.id}`}
                     className="flex items-center gap-3 rounded-xl p-3 transition-colors hover:bg-secondary"
                   >
-                    <Image
-                      src={(u.avatarUrl as string) || "https://i.pravatar.cc/150?img=3"}
-                      alt={(u.username as string) || "Пользователь"}
-                      width={40}
-                      height={40}
-                      className="h-10 w-10 rounded-full object-cover"
-                    />
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={u.avatarUrl as string} alt={(u.username as string) || "Пользователь"} />
+                      <AvatarFallback className="text-xs font-medium bg-muted text-foreground">
+                        {((u.username as string) || "?").slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
                     <p className="text-sm font-semibold text-foreground">{u.username as string}</p>
                   </Link>
                 ))
@@ -265,13 +264,12 @@ export default function UserProfilePage({ params }: { params: Promise<{ id: stri
                     href={`/profile/${u.id}`}
                     className="flex items-center gap-3 rounded-xl p-3 transition-colors hover:bg-secondary"
                   >
-                    <Image
-                      src={(u.avatarUrl as string) || "https://i.pravatar.cc/150?img=5"}
-                      alt={(u.username as string) || "Пользователь"}
-                      width={40}
-                      height={40}
-                      className="h-10 w-10 rounded-full object-cover"
-                    />
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={u.avatarUrl as string} alt={(u.username as string) || "Пользователь"} />
+                      <AvatarFallback className="text-xs font-medium bg-muted text-foreground">
+                        {((u.username as string) || "?").slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
                     <p className="text-sm font-semibold text-foreground">{u.username as string}</p>
                   </Link>
                 ))

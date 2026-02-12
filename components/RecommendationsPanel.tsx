@@ -8,7 +8,7 @@ export interface Destination {
   id: number
   name: string
   country: string
-  imageUrl: string
+  imageUrl?: string
   rating: number
 }
 
@@ -21,17 +21,20 @@ interface RecommendationsPanelProps {
 function DestinationCard({ destination }: { destination: Destination }) {
   return (
     <div className="group flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-secondary cursor-pointer">
-      <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl">
-        <Image
-          src={
-            destination.imageUrl ||
-            `https://picsum.photos/112/112?random=${destination.id}`
-          }
-          alt={destination.name}
-          fill
-          className="object-cover transition-transform group-hover:scale-110"
-          sizes="56px"
-        />
+      <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl bg-muted">
+        {destination.imageUrl ? (
+          <Image
+            src={destination.imageUrl}
+            alt={destination.name}
+            fill
+            className="object-cover transition-transform group-hover:scale-110"
+            sizes="56px"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+            <Plane className="h-6 w-6" />
+          </div>
+        )}
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-foreground">

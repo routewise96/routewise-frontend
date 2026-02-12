@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { Compass, Search, Bell, Plus, LogIn } from "lucide-react"
-import Image from "next/image"
 import Link from "next/link"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { LoginDialog } from "@/components/auth/LoginDialog"
 import { RegisterDialog } from "@/components/auth/RegisterDialog"
@@ -87,16 +87,15 @@ export function Header({ onPostCreated }: HeaderProps = {}) {
             ) : user ? (
               <Link
                 href="/profile"
-                className="ml-1 h-9 w-9 overflow-hidden rounded-full ring-2 ring-border transition-all hover:ring-primary"
+                className="ml-1 block h-9 w-9 overflow-hidden rounded-full ring-2 ring-border transition-all hover:ring-primary"
                 aria-label="Профиль"
               >
-                <Image
-                  src={user.avatarUrl || "https://i.pravatar.cc/150?img=1"}
-                  alt="Ваш аватар"
-                  width={36}
-                  height={36}
-                  className="h-full w-full object-cover"
-                />
+                <Avatar className="h-9 w-9">
+                  <AvatarImage src={user.avatarUrl} alt="Ваш аватар" />
+                  <AvatarFallback className="text-xs font-medium bg-muted text-foreground">
+                    {(user.username || "?").slice(0, 2).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
               </Link>
             ) : (
               <Button

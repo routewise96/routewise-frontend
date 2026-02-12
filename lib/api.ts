@@ -1,4 +1,5 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL || "https://routewise.ru/api";
 
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   const token =
@@ -42,11 +43,13 @@ export const api = {
         method: "POST",
         body: JSON.stringify({ email, password }),
       }),
-    register: (username: string, email: string, password: string) =>
-      fetchAPI("/auth/register", {
-        method: "POST",
-        body: JSON.stringify({ username, email, password }),
-      }),
+
+	register: (username: string, email: string, password: string) =>
+  fetchAPI('/auth/register', {
+    method: 'POST',
+    body: JSON.stringify({ username, email, password })
+  }),
+
     changePassword: (oldPassword: string, newPassword: string) =>
       fetchAPI("/auth/change-password", {
         method: "POST",
@@ -75,6 +78,7 @@ export const api = {
   // --- Users ---
   users: {
     me: () => fetchAPI("/users/me"),
+    getMe: () => fetchAPI("/users/me"),
     byId: (id: number) => fetchAPI(`/users/${id}`),
     updateMe: (formData: FormData) =>
       fetchAPI("/users/me", { method: "PUT", body: formData }),
@@ -96,7 +100,12 @@ export const api = {
   // --- Notifications ---
   notifications: {
     unread: () => fetchAPI("/notifications/unread"),
-    all: (page = 1) => fetchAPI(`/notifications?page=${page}`),
+    all: (page = 1, limit?: number) =>
+      fetchAPI(
+        limit
+          ? `/notifications?page=${page}&limit=${limit}`
+          : `/notifications?page=${page}`
+      ),
     markRead: (id: number) =>
       fetchAPI(`/notifications/${id}/read`, { method: "POST" }),
     markAllRead: () =>

@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  // Restore session from localStorage on mount
+  // Restore session from localStorage on mount; refresh profile from API when token exists
   useEffect(() => {
     const savedToken = localStorage.getItem("token")
     const savedUser = localStorage.getItem("user")
@@ -48,6 +48,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           // corrupted user data
         }
       }
+      api.users
+        .getMe()
+        .then((me) => {
+          const userData: User = {
+            id: me.id,
+            username: me.username ?? "",
+            email: me.email ?? "",
+            avatarUrl: me.avatarUrl ?? me.avatar_url,
+            bio: me.bio,
+          }
+          setUser(userData)
+          localStorage.setItem("user", JSON.stringify(userData))
+        })
+        .catch(() => {})
     }
     setIsLoading(false)
   }, [])
@@ -55,36 +69,61 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = useCallback(async (email: string, password: string) => {
     const data = await api.auth.login(email, password)
     const newToken = data.token || data.access_token
-    const userData: User = data.user || {
-      id: data.id || data.userId,
-      username: data.username || email.split("@")[0],
-      email: data.email || email,
-      avatarUrl: data.avatarUrl || data.avatar_url,
-      bio: data.bio,
-    }
     localStorage.setItem("token", newToken)
-    localStorage.setItem("user", JSON.stringify(userData))
     setToken(newToken)
-    setUser(userData)
+    try {
+      const me = await api.users.getMe()
+      const userData: User = {
+        id: me.id ?? data.user?.id ?? data.id,
+        username: me.username ?? data.user?.username ?? email.split("@")[0],
+        email: me.email ?? data.user?.email ?? email,
+        avatarUrl: me.avatarUrl ?? me.avatar_url ?? data.user?.avatarUrl,
+        bio: me.bio ?? data.user?.bio,
+      }
+      localStorage.setItem("user", JSON.stringify(userData))
+      setUser(userData)
+    } catch {
+      const userData: User = data.user || {
+        id: data.id ?? data.userId,
+        username: data.username ?? email.split("@")[0],
+        email: data.email ?? email,
+        avatarUrl: data.avatarUrl ?? data.avatar_url,
+        bio: data.bio,
+      }
+      localStorage.setItem("user", JSON.stringify(userData))
+      setUser(userData)
+    }
   }, [])
 
   const register = useCallback(
     async (username: string, email: string, password: string) => {
       const data = await api.auth.register(username, email, password)
-      // Auto-login after registration if token is returned
       if (data.token || data.access_token) {
         const newToken = data.token || data.access_token
-        const userData: User = data.user || {
-          id: data.id || data.userId,
-          username: data.username || username,
-          email: data.email || email,
-          avatarUrl: data.avatarUrl || data.avatar_url,
-          bio: data.bio,
-        }
         localStorage.setItem("token", newToken)
-        localStorage.setItem("user", JSON.stringify(userData))
         setToken(newToken)
-        setUser(userData)
+        try {
+          const me = await api.users.getMe()
+          const userData: User = {
+            id: me.id ?? data.user?.id ?? data.id,
+            username: me.username ?? data.user?.username ?? username,
+            email: me.email ?? data.user?.email ?? email,
+            avatarUrl: me.avatarUrl ?? me.avatar_url ?? data.user?.avatarUrl,
+            bio: me.bio ?? data.user?.bio,
+          }
+          localStorage.setItem("user", JSON.stringify(userData))
+          setUser(userData)
+        } catch {
+          const userData: User = data.user || {
+            id: data.id ?? data.userId,
+            username: data.username ?? username,
+            email: data.email ?? email,
+            avatarUrl: data.avatarUrl ?? data.avatar_url,
+            bio: data.bio,
+          }
+          localStorage.setItem("user", JSON.stringify(userData))
+          setUser(userData)
+        }
       }
     },
     []

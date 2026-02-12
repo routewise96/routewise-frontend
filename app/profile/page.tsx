@@ -4,6 +4,7 @@ import { useState, useCallback } from "react"
 import useSWR from "swr"
 import Image from "next/image"
 import Link from "next/link"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useRouter } from "next/navigation"
 import {
   Settings,
@@ -162,13 +163,12 @@ export default function ProfilePage() {
         {/* Profile Header */}
         <div className="flex flex-col items-center gap-4 pb-6">
           <div className="relative">
-            <Image
-              src={displayUser?.avatarUrl || "https://i.pravatar.cc/150?img=1"}
-              alt="Аватар"
-              width={96}
-              height={96}
-              className="h-24 w-24 rounded-full object-cover ring-4 ring-border"
-            />
+            <Avatar className="h-24 w-24 ring-4 ring-border">
+              <AvatarImage src={displayUser?.avatarUrl} alt="Аватар" />
+              <AvatarFallback className="text-2xl font-medium bg-muted text-foreground">
+                {(displayUser?.username || "?").slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
             <button
               onClick={() => setEditOpen(true)}
               className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground ring-2 ring-background"
@@ -281,13 +281,12 @@ export default function ProfilePage() {
                     href={`/profile/${u.id}`}
                     className="flex items-center gap-3 rounded-xl p-3 transition-colors hover:bg-secondary"
                   >
-                    <Image
-                      src={(u.avatarUrl as string) || "https://i.pravatar.cc/150?img=3"}
-                      alt={(u.username as string) || "Пользователь"}
-                      width={40}
-                      height={40}
-                      className="h-10 w-10 rounded-full object-cover"
-                    />
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={u.avatarUrl as string} alt={(u.username as string) || "Пользователь"} />
+                      <AvatarFallback className="text-xs font-medium bg-muted text-foreground">
+                        {((u.username as string) || "?").slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
                     <div>
                       <p className="text-sm font-semibold text-foreground">{u.username as string}</p>
                       {u.bio && <p className="text-xs text-muted-foreground truncate max-w-xs">{u.bio as string}</p>}
@@ -309,13 +308,12 @@ export default function ProfilePage() {
                     href={`/profile/${u.id}`}
                     className="flex items-center gap-3 rounded-xl p-3 transition-colors hover:bg-secondary"
                   >
-                    <Image
-                      src={(u.avatarUrl as string) || "https://i.pravatar.cc/150?img=5"}
-                      alt={(u.username as string) || "Пользователь"}
-                      width={40}
-                      height={40}
-                      className="h-10 w-10 rounded-full object-cover"
-                    />
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={u.avatarUrl as string} alt={(u.username as string) || "Пользователь"} />
+                      <AvatarFallback className="text-xs font-medium bg-muted text-foreground">
+                        {((u.username as string) || "?").slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
                     <div>
                       <p className="text-sm font-semibold text-foreground">{u.username as string}</p>
                       {u.bio && <p className="text-xs text-muted-foreground truncate max-w-xs">{u.bio as string}</p>}

@@ -7,16 +7,19 @@ import {
   Bookmark,
   MoreHorizontal,
   MapPin,
+  ImageIcon,
 } from "lucide-react"
 import Image from "next/image"
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export interface Post {
   id: number
   username: string
-  avatarUrl: string
+  avatarUrl?: string
   location: string
   timestamp: string
-  imageUrl: string
+  imageUrl?: string
   caption: string
   hashtags: string[]
   likes: number
@@ -37,13 +40,12 @@ export function PostCard({ post, onToggleLike, onToggleSave }: PostCardProps) {
       {/* Card Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-3">
         <div className="flex items-center gap-3">
-          <Image
-            src={post.avatarUrl || "https://i.pravatar.cc/150?img=1"}
-            alt={`${post.username}`}
-            width={40}
-            height={40}
-            className="h-10 w-10 rounded-full object-cover ring-2 ring-border"
-          />
+          <Avatar className="h-10 w-10 ring-2 ring-border">
+            <AvatarImage src={post.avatarUrl} alt={post.username} />
+            <AvatarFallback className="text-xs font-medium bg-muted text-foreground">
+              {(post.username || "?").slice(0, 2).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
           <div>
             <p className="text-sm font-semibold text-foreground">
               {post.username}
@@ -66,14 +68,20 @@ export function PostCard({ post, onToggleLike, onToggleSave }: PostCardProps) {
       </div>
 
       {/* Post Image */}
-      <div className="relative aspect-video w-full overflow-hidden">
-        <Image
-          src={post.imageUrl || `https://picsum.photos/600/400?random=${post.id}`}
-          alt={post.caption || "Фото из путешествия"}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 600px"
-        />
+      <div className="relative aspect-video w-full overflow-hidden bg-muted">
+        {post.imageUrl ? (
+          <Image
+            src={post.imageUrl}
+            alt={post.caption || "Фото из путешествия"}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 600px"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+            <ImageIcon className="h-12 w-12" />
+          </div>
+        )}
       </div>
 
       {/* Actions */}
