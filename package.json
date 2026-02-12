@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "NODE_OPTIONS='--max-old-space-size=2048' next build --webpack",
+    "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch",
-    "analyze": "NODE_OPTIONS='--max-old-space-size=2048' ANALYZE=true next build --webpack",
+    "analyze": "NODE_OPTIONS=\"--max-old-space-size=4096\" ANALYZE=true next build",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
