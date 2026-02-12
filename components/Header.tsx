@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { Compass, Search, Bell, Plus, LogIn } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -17,8 +16,6 @@ interface HeaderProps {
 
 export function Header({ onPostCreated }: HeaderProps = {}) {
   const { user, isLoading } = useAuth()
-  const router = useRouter()
-  const [searchOpen, setSearchOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
   const [registerOpen, setRegisterOpen] = useState(false)
   const [createPostOpen, setCreatePostOpen] = useState(false)
@@ -47,26 +44,24 @@ export function Header({ onPostCreated }: HeaderProps = {}) {
 
           {/* Desktop Search */}
           <div className="hidden md:flex flex-1 max-w-md mx-8">
-            <div className="relative w-full">
+            <Link href="/search" className="relative w-full">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Поиск направлений, путешественников..."
-                className="w-full rounded-xl border border-border bg-secondary py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
-              />
-            </div>
+              <div className="w-full rounded-xl border border-border bg-secondary py-2.5 pl-10 pr-4 text-sm text-muted-foreground cursor-text">
+                Поиск направлений, путешественников...
+              </div>
+            </Link>
           </div>
 
           {/* Right Icons */}
           <div className="flex items-center gap-1">
-            {/* Mobile Search Toggle */}
-            <button
-              onClick={() => setSearchOpen(!searchOpen)}
+            {/* Mobile Search */}
+            <Link
+              href="/search"
               className="md:hidden flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
               aria-label="Поиск"
             >
               <Search className="h-5 w-5" />
-            </button>
+            </Link>
 
             {user && (
               <button
@@ -117,20 +112,6 @@ export function Header({ onPostCreated }: HeaderProps = {}) {
           </div>
         </div>
 
-        {/* Mobile Search Dropdown */}
-        {searchOpen && (
-          <div className="border-t border-border px-4 py-3 md:hidden">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Поиск направлений, путешественников..."
-                className="w-full rounded-xl border border-border bg-secondary py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
-                autoFocus
-              />
-            </div>
-          </div>
-        )}
       </header>
 
       <LoginDialog
