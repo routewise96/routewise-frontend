@@ -1,13 +1,15 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
+import { Toaster } from '@/components/ui/sonner'
+import { AuthProvider } from '@/components/auth/AuthProvider'
 
 import './globals.css'
 
 const _inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
-  title: 'RouteWise - Travel Social Network',
-  description: 'Discover amazing travel destinations, share your adventures, and connect with fellow travelers around the world.',
+  title: 'RouteWise - Социальная сеть путешественников',
+  description: 'Открывайте удивительные направления, делитесь приключениями и общайтесь с путешественниками со всего мира.',
 }
 
 export const viewport: Viewport = {
@@ -23,7 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${_inter.variable} font-sans antialiased`}>{children}</body>
+      <body className={`${_inter.variable} font-sans antialiased`}>
+        <AuthProvider>
+          {children}
+          <Toaster richColors position="top-right" />
+        </AuthProvider>
+      </body>
     </html>
   )
 }
