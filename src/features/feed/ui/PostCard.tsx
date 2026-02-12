@@ -8,38 +8,79 @@ import {
   MoreHorizontal,
   MapPin,
   ImageIcon,
+  Trash2,
+  Pencil,
+  Flag,
 } from "lucide-react"
 import Image from "next/image"
-
+import Link from "next/link"
+import { formatDistanceToNow } from "date-fns"
+import { ru, enUS } from "date-fns/locale"
+import { useTranslations, useLocale } from "next-intl"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
-export interface Post {
-  id: number
-  username: string
-  avatarUrl?: string
-  location: string
-  timestamp: string
-  imageUrl?: string
-  caption: string
-  hashtags: string[]
-  likes: number
-  comments: number
-  liked: boolean
-  saved: boolean
-}
+import type { PostCardPost } from "@/features/profile/lib/normalizePost"
 
 interface PostCardProps {
-  post: Post
+  post: PostCardPost
+  isAuthor?: boolean
   onToggleLike: (id: number) => void
   onToggleSave: (id: number) => void
+  onOpenLogin?: () => void
 }
 
-export function PostCard({ post, onToggleLike, onToggleSave }: PostCardProps) {
+function formatDate(timestamp: string, locale: string): string {
+  if (!timestamp) return ""
+  try {
+    const date = new Date(timestamp)
+    if (Number.isNaN(date.getTime())) return timestamp
+    const localeFn = locale === "ru" ? ru : enUS
+    return formatDistanceToNow(date, { addSuffix: true, locale: localeFn })
+  } catch {
+    return timestamp
+  }
+}
+
+export function PostCard({
+  post,
+  isAuthor,
+  onToggleLike,
+  onToggleSave,
+  onOpenLogin,
+}: PostCardProps) {
+  const t = useTranslations("feed")
+  const locale = useLocale()
+  const displayDate = formatDate(post.timestamp, locale)
+
+  const handleLike = () => {
+    if (onOpenLogin) {
+      onOpenLogin()
+      return
+    }
+    onToggleLike(post.id)
+  }
+
+  const handleSave = () => {
+    if (onOpenLogin) {
+      onOpenLogin()
+      return
+    }
+    onToggleSave(post.id)
+  }
+
   return (
     <article className="rounded-2xl border border-border bg-card overflow-hidden transition-colors hover:border-border/80">
       {/* Card Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-3">
-        <div className="flex items-center gap-3">
+        <Link
+          href={post.authorId != null ? `/profile/${post.authorId}` : `/profile/${post.username}`}
+          className="flex items-center gap-3 hover:opacity-90"
+        >
           <Avatar className="h-10 w-10 ring-2 ring-border">
             <AvatarImage src={post.avatarUrl} alt={post.username} />
             <AvatarFallback className="text-xs font-medium bg-muted text-foreground">
@@ -51,19 +92,51 @@ export function PostCard({ post, onToggleLike, onToggleSave }: PostCardProps) {
               {post.username}
             </p>
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
-              <MapPin className="h-3 w-3" />
-              <span>{post.location}</span>
+              {post.location ? (
+                <>
+                  <MapPin className="h-3 w-3" />
+                  <span>{post.location}</span>
+                </>
+              ) : (
+                <span>{displayDate}</span>
+              )}
             </div>
           </div>
-        </div>
+        </Link>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">{post.timestamp}</span>
-          <button
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-            aria-label="Ещё"
-          >
-            <MoreHorizontal className="h-4 w-4" />
-          </button>
+          {post.location && (
+            <span className="text-xs text-muted-foreground">{displayDate}</span>
+          )}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                aria-label={t("more")}
+              >
+                <MoreHorizontal className="h-4 w-4" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem className="text-destructive focus:text-destructive">
+                <Flag className="h-4 w-4 mr-2" />
+                {t("report")}
+              </DropdownMenuItem>
+              {isAuthor && (
+                <>
+                  <DropdownMenuItem asChild>
+                    <Link href={`/post/${post.id}/edit`}>
+                      <Pencil className="h-4 w-4 mr-2" />
+                      {t("edit")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-destructive focus:text-destructive">
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    {t("delete")}
+                  </DropdownMenuItem>
+                </>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 
@@ -72,10 +145,11 @@ export function PostCard({ post, onToggleLike, onToggleSave }: PostCardProps) {
         {post.imageUrl ? (
           <Image
             src={post.imageUrl}
-            alt={post.caption || "Фото из путешествия"}
+            alt={post.caption || "Post"}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 600px"
+            loading="lazy"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-muted-foreground">
@@ -89,13 +163,13 @@ export function PostCard({ post, onToggleLike, onToggleSave }: PostCardProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
             <button
-              onClick={() => onToggleLike(post.id)}
+              onClick={handleLike}
               className={`flex h-10 w-10 items-center justify-center rounded-xl transition-all active:scale-90 ${
                 post.liked
                   ? "text-destructive"
                   : "text-muted-foreground hover:bg-secondary hover:text-foreground"
               }`}
-              aria-label={post.liked ? "Убрать лайк" : "Лайк"}
+              aria-label={post.liked ? t("unlike") : t("like")}
             >
               <Heart
                 className={`h-5 w-5 transition-all ${
@@ -103,27 +177,29 @@ export function PostCard({ post, onToggleLike, onToggleSave }: PostCardProps) {
                 }`}
               />
             </button>
-            <button
+            <Link
+              href={`/post/${post.id}`}
               className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              aria-label="Комментировать"
+              aria-label={t("comment")}
             >
               <MessageCircle className="h-5 w-5" />
-            </button>
+            </Link>
             <button
               className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              aria-label="Поделиться"
+              aria-label={t("repost")}
+              title={t("repost")}
             >
               <Share2 className="h-5 w-5" />
             </button>
           </div>
           <button
-            onClick={() => onToggleSave(post.id)}
+            onClick={handleSave}
             className={`flex h-10 w-10 items-center justify-center rounded-xl transition-all active:scale-90 ${
               post.saved
                 ? "text-primary"
                 : "text-muted-foreground hover:bg-secondary hover:text-foreground"
             }`}
-            aria-label={post.saved ? "Убрать из сохранённых" : "Сохранить"}
+            aria-label={post.saved ? t("unsave") : t("save")}
           >
             <Bookmark
               className={`h-5 w-5 ${post.saved ? "fill-current" : ""}`}
@@ -136,13 +212,13 @@ export function PostCard({ post, onToggleLike, onToggleSave }: PostCardProps) {
           <span className="font-semibold text-foreground">
             {post.likes.toLocaleString()}{" "}
             <span className="font-normal text-muted-foreground">
-              {"лайков"}
+              {post.likes === 1 ? t("likeCountOne") : t("likeCount")}
             </span>
           </span>
           <span className="font-semibold text-foreground">
             {post.comments}{" "}
             <span className="font-normal text-muted-foreground">
-              {"ответов"}
+              {t("commentCount")}
             </span>
           </span>
         </div>

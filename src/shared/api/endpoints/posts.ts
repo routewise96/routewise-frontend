@@ -2,8 +2,8 @@ import apiClient from "../base"
 import type { Post, PaginatedResponse } from "../../types/api"
 
 export const postsApi = {
-  feed: (page = 1): Promise<PaginatedResponse<Post>> =>
-    apiClient.get("/posts", { params: { page } }).then((r) => r.data),
+  feed: (page = 1, limit = 10): Promise<PaginatedResponse<Post>> =>
+    apiClient.get("/posts", { params: { page, limit } }).then((r) => r.data),
 
   getById: (id: string | number): Promise<Post> =>
     apiClient.get(`/posts/${id}`).then((r) => r.data),

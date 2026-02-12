@@ -2,6 +2,7 @@ import type { Post as ApiPost } from "@/shared/types/models"
 
 export interface PostCardPost {
   id: number
+  authorId?: number
   username: string
   avatarUrl?: string
   location: string
@@ -20,6 +21,7 @@ export function normalizePost(raw: ApiPost | Record<string, unknown>, fallbackUs
   const author = r.author as Record<string, unknown> | undefined
   return {
     id: (r.id as number) ?? 0,
+    authorId: (r.authorId as number) ?? (author?.id as number),
     username: (r.username as string) ?? (author?.username as string) ?? fallbackUsername,
     avatarUrl: (r.avatarUrl as string) ?? (r.avatar_url as string) ?? (author?.avatarUrl as string) ?? (author?.avatar_url as string),
     location: (r.location as string) ?? "",
