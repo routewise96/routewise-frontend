@@ -50,6 +50,29 @@ npm run build
 npm run start
 ```
 
+Сборка выполняется через webpack (`--webpack`) для работы PWA. При нехватке памяти (JavaScript heap out of memory) используется `NODE_OPTIONS=--max-old-space-size=2048` в скрипте `build`.
+
+## Тестирование
+
+- **Unit-тесты (Jest):**  
+  `npm run test` — один прогон; `npm run test:watch` — в режиме watch.
+- **E2E (Cypress):**  
+  Запустите `npm run dev`, затем `npm run cypress:open` для интерактивного запуска или `npm run cypress:run` для headless.
+
+## Производительность
+
+- **Бандл-анализ:**  
+  `npm run analyze` — собирает проект и открывает отчёт по размерам чанков (требует `@next/bundle-analyzer`).
+
+## PWA
+
+В проекте включён `@ducanh2912/next-pwa`. Dev-сервер запускается без Turbopack (`next dev`), сборка — через webpack. Service Worker регистрируется в production; в development PWA отключена. Манифест: `public/manifest.json`; офлайн-страница: `/offline`.
+
+## Мониторинг
+
+- **Sentry** — ошибки отправляются при наличии `NEXT_PUBLIC_SENTRY_DSN`. Конфиги: `sentry.client.config.ts`, `sentry.server.config.ts`, `sentry.edge.config.ts`; глобальный обработчик — `app/global-error.tsx`.
+- **Vercel Analytics** — подключён через `@vercel/analytics` в `app/providers/Analytics.tsx` (в layout).
+
 ## Переменные окружения
 
 См. `.env.example`:
@@ -57,7 +80,4 @@ npm run start
 - `NEXT_PUBLIC_API_URL` — базовый URL API (по умолчанию https://routewise.ru/api)
 - `NEXT_PUBLIC_SENTRY_DSN` — (опционально) DSN для Sentry
 - `NEXT_PUBLIC_DEFAULT_LOCALE` — локаль по умолчанию (ru/en)
-
-## PWA
-
-В проекте есть `public/manifest.json`. Service Worker через `@ducanh2912/next-pwa` можно включить при сборке через webpack: `npm run build -- --webpack` (стандартная сборка использует Turbopack, который пока не поддерживает next-pwa).
+- `ANALYZE` — при `true` при `next build` запускается bundle analyzer
