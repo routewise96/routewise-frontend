@@ -74,8 +74,16 @@ export default function FeedPage() {
   const [loginOpen, setLoginOpen] = useState(false)
   const [registerOpen, setRegisterOpen] = useState(false)
 
+  // Refresh feed (called after creating a post)
+  function refreshFeed() {
+    setPage(1)
+    setAllPosts([])
+    setHasMore(true)
+    feedMutate()
+  }
+
   // Fetch initial page of posts
-  const { isLoading: feedLoading, error: feedError } = useSWR(
+  const { isLoading: feedLoading, error: feedError, mutate: feedMutate } = useSWR(
     "feed-page-1",
     async () => {
       const data = await api.posts.feed(1)
@@ -256,7 +264,7 @@ export default function FeedPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Header />
+      <Header onPostCreated={refreshFeed} />
       <Sidebar />
 
       <div className="lg:pl-60 xl:pl-64">

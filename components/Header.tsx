@@ -1,19 +1,27 @@
 "use client"
 
 import { useState } from "react"
-import { Compass, Search, Bell, Mail, LogIn } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { Compass, Search, Bell, Plus, LogIn } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { LoginDialog } from "@/components/auth/LoginDialog"
 import { RegisterDialog } from "@/components/auth/RegisterDialog"
+import { CreatePostDialog } from "@/components/CreatePostDialog"
 import { Button } from "@/components/ui/button"
 
-export function Header() {
+interface HeaderProps {
+  onPostCreated?: () => void
+}
+
+export function Header({ onPostCreated }: HeaderProps = {}) {
   const { user, isLoading } = useAuth()
+  const router = useRouter()
   const [searchOpen, setSearchOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
   const [registerOpen, setRegisterOpen] = useState(false)
+  const [createPostOpen, setCreatePostOpen] = useState(false)
 
   function switchToRegister() {
     setLoginOpen(false)
@@ -60,20 +68,23 @@ export function Header() {
               <Search className="h-5 w-5" />
             </button>
 
-            <button
+            {user && (
+              <button
+                onClick={() => setCreatePostOpen(true)}
+                className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
+                aria-label="Создать пост"
+              >
+                <Plus className="h-5 w-5" />
+              </button>
+            )}
+
+            <Link
+              href="/notifications"
               className="relative flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
               aria-label="Уведомления"
             >
               <Bell className="h-5 w-5" />
-              <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-destructive" />
-            </button>
-
-            <button
-              className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              aria-label="Сообщения"
-            >
-              <Mail className="h-5 w-5" />
-            </button>
+            </Link>
 
             {/* Auth: avatar or login button */}
             {isLoading ? (
@@ -131,6 +142,11 @@ export function Header() {
         open={registerOpen}
         onOpenChange={setRegisterOpen}
         onSwitchToLogin={switchToLogin}
+      />
+      <CreatePostDialog
+        open={createPostOpen}
+        onOpenChange={setCreatePostOpen}
+        onPostCreated={onPostCreated}
       />
     </>
   )
