@@ -10,5 +10,6 @@ export {
   searchApi,
   bookingsApi,
   shortsApi,
+  aiApi,
 } from "./endpoints"
 export type { SearchResult } from "./endpoints"

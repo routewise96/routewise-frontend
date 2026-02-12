@@ -49,7 +49,8 @@
     "notifications": "Уведомления",
     "map": "Карта",
     "bookings": "Бронирования",
-    "shorts": "Шорты"
+    "shorts": "Шорты",
+    "assistant": "AI-ассистент"
   },
   "profile": {
     "posts": "Посты",
@@ -209,5 +210,19 @@
     "repostSuccess": "Репост выполнен",
     "repostError": "Не удалось сделать репост",
     "loading": "Загрузка..."
+  },
+  "aiAssistant": {
+    "title": "AI-ассистент",
+    "widgetLabel": "Открыть ассистента",
+    "inputPlaceholder": "Спросите о путешествиях...",
+    "send": "Отправить",
+    "voice": "Голосовой ввод",
+    "listening": "Слушаю...",
+    "errorVoiceNotSupported": "Голосовой ввод не поддерживается",
+    "suggestions": "Быстрые подсказки",
+    "planRoute": "Построить маршрут",
+    "book": "Забронировать",
+    "search": "Найти",
+    "assistantThinking": "Ассистент думает..."
   }
 }

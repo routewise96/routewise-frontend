@@ -175,3 +175,40 @@ export interface PaginatedMeta {
   total: number
   hasMore: boolean
 }
+
+/** AI Assistant */
+export interface AIMessage {
+  id: string
+  role: "user" | "assistant" | "system"
+  content: string
+  timestamp: string
+  isStreaming?: boolean
+}
+
+export interface AISuggestionAction {
+  type: "search" | "route" | "book" | "navigate"
+  payload?: Record<string, unknown>
+}
+
+export interface AISuggestion {
+  id: string
+  title: string
+  description?: string
+  action?: AISuggestionAction
+}
+
+export interface RouteStep {
+  instruction: string
+  distance?: number
+  duration?: number
+  coordinates?: GeoPoint
+}
+
+export interface RoutePlan {
+  start: GeoPoint
+  end?: GeoPoint
+  waypoints?: GeoPoint[]
+  distance: number
+  duration: number
+  steps: RouteStep[]
+}

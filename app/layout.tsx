@@ -6,6 +6,7 @@ import { QueryProvider } from "@/app/providers/QueryProvider"
 import { I18nProvider } from "@/app/providers/I18nProvider"
 import { WebSocketProvider } from "@/app/providers/WebSocketProvider"
 import { GeoWebSocketProvider } from "@/app/providers/GeoWebSocketProvider"
+import { AIChatWidget } from "@/features/ai-assistant"
 
 import "./globals.css"
 
@@ -37,6 +38,7 @@ export default function RootLayout({
               <WebSocketProvider>
                 <GeoWebSocketProvider>
                   {children}
+                  <AIChatWidget />
                   <Toaster richColors position="top-right" />
                 </GeoWebSocketProvider>
               </WebSocketProvider>

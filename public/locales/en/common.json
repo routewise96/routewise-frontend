@@ -49,7 +49,8 @@
     "notifications": "Notifications",
     "map": "Map",
     "bookings": "Bookings",
-    "shorts": "Shorts"
+    "shorts": "Shorts",
+    "assistant": "AI Assistant"
   },
   "profile": {
     "posts": "Posts",
@@ -209,5 +210,19 @@
     "repostSuccess": "Reposted",
     "repostError": "Could not repost",
     "loading": "Loading..."
+  },
+  "aiAssistant": {
+    "title": "AI Assistant",
+    "widgetLabel": "Open assistant",
+    "inputPlaceholder": "Ask about travel...",
+    "send": "Send",
+    "voice": "Voice input",
+    "listening": "Listening...",
+    "errorVoiceNotSupported": "Voice input not supported",
+    "suggestions": "Quick suggestions",
+    "planRoute": "Plan route",
+    "book": "Book",
+    "search": "Find",
+    "assistantThinking": "Assistant is thinking..."
   }
 }
