@@ -7,15 +7,28 @@ import { I18nProvider } from "@/app/providers/I18nProvider"
 import { WebSocketProvider } from "@/app/providers/WebSocketProvider"
 import { GeoWebSocketProvider } from "@/app/providers/GeoWebSocketProvider"
 import { AIChatWidget } from "@/features/ai-assistant"
+import { Analytics } from "@/app/providers/Analytics"
 
 import "./globals.css"
 
 const _inter = Inter({ subsets: ["latin", "cyrillic"], variable: "--font-inter" })
 
 export const metadata: Metadata = {
-  title: "RouteWise - Социальная сеть путешественников",
+  title: {
+    template: "%s — RouteWise",
+    default: "RouteWise — социальная платформа для путешественников",
+  },
   description:
-    "Открывайте удивительные направления, делитесь приключениями и общайтесь с путешественниками со всего мира.",
+    "Планируйте путешествия, находите попутчиков, получайте AI-рекомендации.",
+  openGraph: {
+    title: "RouteWise",
+    description: "Социальная платформа для путешественников",
+    url: "https://routewise.ru",
+    siteName: "RouteWise",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    locale: "ru_RU",
+    type: "website",
+  },
 }
 
 export const viewport: Viewport = {
@@ -40,6 +53,7 @@ export default function RootLayout({
                   {children}
                   <AIChatWidget />
                   <Toaster richColors position="top-right" />
+                  <Analytics />
                 </GeoWebSocketProvider>
               </WebSocketProvider>
             </AuthProvider>
