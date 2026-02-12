@@ -1,6 +1,12 @@
-// PWA: use with webpack (npm run build -- --webpack). Turbopack does not support next-pwa yet.
-// import withPWA from "@ducanh2912/next-pwa"
 import bundleAnalyzer from "@next/bundle-analyzer"
+import withPWAInit from "@ducanh2912/next-pwa"
+
+const withPWA = withPWAInit({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
+})
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
@@ -21,4 +27,4 @@ const nextConfig = {
   },
 }
 
-export default withBundleAnalyzer(nextConfig)
+export default withBundleAnalyzer(withPWA(nextConfig))
