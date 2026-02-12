@@ -1,5 +1,6 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { Loader2 } from "lucide-react"
@@ -15,11 +16,11 @@ import {
   useVerifyBusiness,
 } from "../hooks"
 import { AdminLayout } from "./AdminLayout"
-import { BanUserDialog } from "./BanUserDialog"
-import { VerifyBusinessDialog } from "./VerifyBusinessDialog"
 import type { User } from "@/shared/types/models"
 import { toast } from "sonner"
 
+const BanUserDialog = dynamic(() => import("./BanUserDialog").then((m) => ({ default: m.BanUserDialog })), { ssr: false })
+const VerifyBusinessDialog = dynamic(() => import("./VerifyBusinessDialog").then((m) => ({ default: m.VerifyBusinessDialog })), { ssr: false })
 export function UsersPage() {
   const t = useTranslations("admin")
   const [search, setSearch] = useState("")

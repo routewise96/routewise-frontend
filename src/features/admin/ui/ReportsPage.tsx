@@ -1,5 +1,6 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { Loader2 } from "lucide-react"
@@ -8,9 +9,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent } from "@/components/ui/card"
 import { useAdminReports, useResolveReport } from "../hooks"
 import { AdminLayout } from "./AdminLayout"
-import { ReportDetailDialog } from "./ReportDetailDialog"
 import type { Report } from "@/shared/types/models"
 import { toast } from "sonner"
+
+const ReportDetailDialog = dynamic(() => import("./ReportDetailDialog").then((m) => ({ default: m.ReportDetailDialog })), { ssr: false })
 
 export function ReportsPage() {
   const t = useTranslations("admin")
