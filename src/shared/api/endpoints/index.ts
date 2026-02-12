@@ -1,6 +1,8 @@
 export { authApi } from "./auth"
 export { usersApi } from "./users"
 export { postsApi } from "./posts"
+export { commentsApi } from "./comments"
+export { geoApi } from "./geo"
 export { notificationsApi } from "./notifications"
 export { searchApi } from "./search"
 export type { SearchResult } from "./search"

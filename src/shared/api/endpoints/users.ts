@@ -25,4 +25,18 @@ export const usersApi = {
 
   getSavedPosts: (page = 1): Promise<PaginatedResponse<Post>> =>
     apiClient.get("/users/me/saved", { params: { page } }).then((r) => r.data),
+
+  search: (q: string): Promise<User[]> => {
+    if (!q.trim()) return Promise.resolve([])
+    return apiClient
+      .get("/search", { params: { q: q.trim(), type: "users" } })
+      .then((r) => {
+        const data = r.data
+        if (Array.isArray(data)) return data as User[]
+        if (data?.users) return data.users as User[]
+        if (data?.data) return data.data as User[]
+        return []
+      })
+      .catch(() => [])
+  },
 }

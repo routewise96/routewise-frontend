@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl"
 import { LogIn } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
+const OPEN_CREATE_POST_EVENT = "routewise:open-create-post"
+
 interface EmptyFeedProps {
   isAuthenticated: boolean
   onOpenLogin?: () => void
@@ -27,8 +29,11 @@ export function EmptyFeed({
         <p className="text-sm text-muted-foreground mb-4">
           {t("createPostHint")}
         </p>
-        <Button asChild>
-          <Link href="/">{t("createPost")}</Link>
+        <Button
+          type="button"
+          onClick={() => window.dispatchEvent(new CustomEvent(OPEN_CREATE_POST_EVENT))}
+        >
+          {t("createPost")}
         </Button>
       </div>
     )

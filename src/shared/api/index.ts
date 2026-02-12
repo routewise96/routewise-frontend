@@ -4,6 +4,8 @@ export {
   authApi,
   usersApi,
   postsApi,
+  commentsApi,
+  geoApi,
   notificationsApi,
   searchApi,
   bookingsApi,

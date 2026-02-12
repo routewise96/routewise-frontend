@@ -140,8 +140,11 @@ export function PostCard({
         </div>
       </div>
 
-      {/* Post Image */}
-      <div className="relative aspect-video w-full overflow-hidden bg-muted">
+      {/* Post Image — click goes to post detail */}
+      <Link
+        href={`/post/${post.id}`}
+        className="block relative aspect-video w-full overflow-hidden bg-muted"
+      >
         {post.imageUrl ? (
           <Image
             src={post.imageUrl}
@@ -156,7 +159,7 @@ export function PostCard({
             <ImageIcon className="h-12 w-12" />
           </div>
         )}
-      </div>
+      </Link>
 
       {/* Actions */}
       <div className="px-4 pt-3">

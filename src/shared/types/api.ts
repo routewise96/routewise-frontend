@@ -42,4 +42,4 @@ export interface RegisterData {
 
 export type ApiPaginated<T> = T[] | PaginatedResponse<T>
 
-export type { User, Post, Comment, Notification, Destination, Booking }
+export type { User, Post, Comment, Notification, Destination, Booking, Place } from "./models"

@@ -96,6 +96,15 @@ export interface GeoLocation {
   avatarUrl?: string
 }
 
+export interface Place {
+  id: string
+  name: string
+  address?: string
+  lat: number
+  lng: number
+  country?: string
+}
+
 export interface PaginatedMeta {
   page: number
   limit: number

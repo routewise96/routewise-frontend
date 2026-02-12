@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Compass, Search, Bell, Plus, LogIn, User, LogOut } from "lucide-react"
 import Link from "next/link"
@@ -12,12 +12,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useAuth, LoginDialog, RegisterDialog } from "@/features/auth"
-import { CreatePostDialog } from "@/components/CreatePostDialog"
+import { CreatePostDialog } from "@/features/create-post"
 import { Button } from "@/components/ui/button"
 
 interface HeaderProps {
   onPostCreated?: () => void
 }
+
+const CREATE_POST_EVENT = "routewise:open-create-post"
 
 export function Header({ onPostCreated }: HeaderProps = {}) {
   const router = useRouter()
@@ -25,6 +27,12 @@ export function Header({ onPostCreated }: HeaderProps = {}) {
   const [loginOpen, setLoginOpen] = useState(false)
   const [registerOpen, setRegisterOpen] = useState(false)
   const [createPostOpen, setCreatePostOpen] = useState(false)
+
+  useEffect(() => {
+    const open = () => setCreatePostOpen(true)
+    window.addEventListener(CREATE_POST_EVENT, open)
+    return () => window.removeEventListener(CREATE_POST_EVENT, open)
+  }, [])
 
   function switchToRegister() {
     setLoginOpen(false)
