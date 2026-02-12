@@ -158,6 +158,61 @@ export interface BookingReviewInput {
   comment?: string
 }
 
+/** Business / Company profile */
+export interface Company {
+  id: string
+  name: string
+  description?: string
+  logo?: string
+  address?: string
+  coordinates?: GeoPoint
+  phone?: string
+  email?: string
+  website?: string
+  categories: string[]
+  verified: boolean
+  createdAt: string
+}
+
+/** Business dashboard stats */
+export interface BusinessDashboard {
+  stats: {
+    totalBookings: number
+    totalRevenue: number
+    averageRating: number
+    bookingsByStatus: Record<BookingStatus, number>
+    revenueByPeriod: { date: string; revenue: number }[]
+    popularServices: { name: string; bookings: number }[]
+  }
+  recentBookings: Booking[]
+  upcomingEvents?: unknown[]
+}
+
+/** Promotion / offer */
+export type PromotionStatus = "active" | "scheduled" | "expired" | "disabled"
+
+export interface Promotion {
+  id: string
+  title: string
+  description: string
+  discountType: "percentage" | "fixed"
+  discountValue: number
+  code?: string
+  startDate: string
+  endDate: string
+  status: PromotionStatus
+  usageLimit?: number
+  usedCount: number
+}
+
+/** Analytics for charts */
+export interface AnalyticsData {
+  period: string
+  revenue: { date: string; value: number }[]
+  bookings: { date: string; count: number }[]
+  topServices: { name: string; count: number }[]
+}
+
 export interface GeoLocation {
   userId: number
   lat: number

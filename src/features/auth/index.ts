@@ -2,6 +2,7 @@ export {
   AuthProvider,
   useAuth,
   ProtectedRoute,
+  BusinessRoute,
   LoginForm,
   RegisterForm,
   LoginDialog,

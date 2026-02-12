@@ -9,6 +9,7 @@ import {
   User,
   Settings,
   LogIn,
+  Briefcase,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -25,6 +26,7 @@ const NAV_ITEMS = [
   { icon: User, labelKey: "profile", href: "/profile" },
   { icon: Settings, labelKey: "settings", href: "/settings" },
 ]
+const BUSINESS_NAV = { icon: Briefcase, labelKey: "business", href: "/business/dashboard" }
 
 export function Sidebar() {
   const pathname = usePathname()
@@ -51,6 +53,19 @@ export function Sidebar() {
             </Link>
           )
         })}
+        {user?.role === "business" && (
+          <Link
+            href={BUSINESS_NAV.href}
+            className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
+              pathname.startsWith("/business")
+                ? "bg-primary/10 text-primary"
+                : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+            }`}
+          >
+            <BUSINESS_NAV.icon className="h-5 w-5" />
+            {t(BUSINESS_NAV.labelKey)}
+          </Link>
+        )}
       </nav>
 
       {/* User Card */}

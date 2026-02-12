@@ -1,9 +1,10 @@
 "use client"
 
-import { Home, Map, Video, Bot, CalendarDays, User, Bell } from "lucide-react"
+import { Home, Map, Video, Bot, CalendarDays, User, Bell, Briefcase } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useTranslations } from "next-intl"
+import { useAuth } from "@/features/auth"
 
 const BOTTOM_NAV_ITEMS = [
   { icon: Home, labelKey: "home", href: "/" },
@@ -14,10 +15,12 @@ const BOTTOM_NAV_ITEMS = [
   { icon: User, labelKey: "profile", href: "/profile" },
   { icon: Bell, labelKey: "notifications", href: "/notifications" },
 ]
+const BUSINESS_NAV = { icon: Briefcase, labelKey: "business", href: "/business/dashboard" }
 
 export function BottomNav() {
   const pathname = usePathname()
   const t = useTranslations("nav")
+  const { user } = useAuth()
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/80 backdrop-blur-xl lg:hidden">
@@ -43,6 +46,18 @@ export function BottomNav() {
             </Link>
           )
         })}
+        {user?.role === "business" && (
+          <Link
+            href={BUSINESS_NAV.href}
+            className={`flex flex-col items-center gap-1 rounded-xl px-4 py-2 transition-colors ${
+              pathname.startsWith("/business") ? "text-primary" : "text-muted-foreground hover:text-foreground"
+            }`}
+            aria-label={t(BUSINESS_NAV.labelKey)}
+          >
+            <BUSINESS_NAV.icon className={`h-5 w-5 ${pathname.startsWith("/business") ? "stroke-[2.5]" : ""}`} />
+            <span className="text-[10px] font-medium">{t(BUSINESS_NAV.labelKey)}</span>
+          </Link>
+        )}
       </div>
     </nav>
   )

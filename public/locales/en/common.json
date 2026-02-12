@@ -50,7 +50,8 @@
     "map": "Map",
     "bookings": "Bookings",
     "shorts": "Shorts",
-    "assistant": "AI Assistant"
+    "assistant": "AI Assistant",
+    "business": "Business cabinet"
   },
   "profile": {
     "posts": "Posts",
@@ -261,5 +262,71 @@
     "reviewError": "Could not submit review",
     "noBookings": "You have no bookings yet",
     "loadMore": "Load more"
+  },
+  "business": {
+    "dashboard": "Dashboard",
+    "analytics": "Analytics",
+    "bookings": "Bookings",
+    "promotions": "Promotions",
+    "settings": "Settings",
+    "stats": {
+      "bookings": "Bookings",
+      "revenue": "Revenue",
+      "rating": "Rating"
+    },
+    "charts": {
+      "revenue": "Revenue by period",
+      "bookings": "Bookings"
+    },
+    "period": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
+    },
+    "status": {
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "cancelled": "Cancelled",
+      "completed": "Completed"
+    },
+    "filterAll": "All",
+    "recentBookings": "Recent bookings",
+    "noBookings": "No bookings",
+    "loadMore": "Load more",
+    "error": "Error loading",
+    "topServices": "Top services",
+    "createPromo": "Create promotion",
+    "editPromo": "Edit promotion",
+    "promoTitle": "Title",
+    "promoDescription": "Description",
+    "discountType": "Discount type",
+    "discountValue": "Discount value",
+    "promoCode": "Promo code",
+    "startDate": "Start",
+    "endDate": "End",
+    "status": "Status",
+    "statusActive": "Active",
+    "statusScheduled": "Scheduled",
+    "statusExpired": "Expired",
+    "statusDisabled": "Disabled",
+    "cancel": "Cancel",
+    "save": "Save",
+    "used": "Used",
+    "promoCreated": "Promotion created",
+    "promoUpdated": "Promotion updated",
+    "promoDeleted": "Promotion deleted",
+    "promoDeleteConfirm": "Delete this promotion?",
+    "noPromotions": "No promotions",
+    "companyProfile": "Company profile",
+    "companyName": "Name",
+    "companyDescription": "Description",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "website": "Website",
+    "categories": "Categories",
+    "uploadLogo": "Upload logo",
+    "profileUpdated": "Profile updated"
   }
 }
