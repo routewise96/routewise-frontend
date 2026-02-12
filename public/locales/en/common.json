@@ -224,5 +224,42 @@
     "book": "Book",
     "search": "Find",
     "assistantThinking": "Assistant is thinking..."
+  },
+  "bookings": {
+    "title": "My bookings",
+    "detailTitle": "Booking details",
+    "status": {
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "cancelled": "Cancelled",
+      "completed": "Completed"
+    },
+    "types": {
+      "hotel": "Hotel",
+      "restaurant": "Restaurant",
+      "flight": "Flight",
+      "train": "Train",
+      "attraction": "Attraction",
+      "event": "Event"
+    },
+    "date": "Date",
+    "time": "Time",
+    "location": "Location",
+    "price": "Price",
+    "bookingReference": "Booking reference",
+    "cancel": "Cancel",
+    "cancelConfirmTitle": "Cancel booking",
+    "cancelConfirmMessage": "Are you sure you want to cancel this booking?",
+    "cancelSuccess": "Booking cancelled",
+    "cancelError": "Could not cancel booking",
+    "dialogNo": "No",
+    "review": "Leave review",
+    "rating": "Rating",
+    "comment": "Comment",
+    "submitReview": "Submit review",
+    "reviewSuccess": "Thank you for your review!",
+    "reviewError": "Could not submit review",
+    "noBookings": "You have no bookings yet",
+    "loadMore": "Load more"
   }
 }

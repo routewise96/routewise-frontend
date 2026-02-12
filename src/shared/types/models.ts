@@ -110,13 +110,52 @@ export interface Destination {
   rating?: number
 }
 
+export type BookingType =
+  | "hotel"
+  | "restaurant"
+  | "flight"
+  | "train"
+  | "attraction"
+  | "event"
+
+export type BookingStatus =
+  | "confirmed"
+  | "pending"
+  | "cancelled"
+  | "completed"
+
+export interface BookingLocation {
+  name: string
+  address?: string
+  coordinates?: GeoPoint
+}
+
+export interface BookingReview {
+  rating: number
+  comment?: string
+  createdAt: string
+}
+
 export interface Booking {
-  id: number
-  type: string
+  id: string
+  type: BookingType
   title: string
-  status: string
-  date?: string
-  details?: Record<string, unknown>
+  description?: string
+  image?: string
+  date: string
+  time?: string
+  location: BookingLocation
+  status: BookingStatus
+  price?: number
+  currency?: string
+  bookingReference?: string
+  createdAt: string
+  review?: BookingReview
+}
+
+export interface BookingReviewInput {
+  rating: number
+  comment?: string
 }
 
 export interface GeoLocation {

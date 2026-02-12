@@ -224,5 +224,42 @@
     "book": "Забронировать",
     "search": "Найти",
     "assistantThinking": "Ассистент думает..."
+  },
+  "bookings": {
+    "title": "Мои бронирования",
+    "detailTitle": "Детали бронирования",
+    "status": {
+      "confirmed": "Подтверждено",
+      "pending": "Ожидает",
+      "cancelled": "Отменено",
+      "completed": "Завершено"
+    },
+    "types": {
+      "hotel": "Отель",
+      "restaurant": "Ресторан",
+      "flight": "Авиабилет",
+      "train": "Поезд",
+      "attraction": "Развлечения",
+      "event": "Событие"
+    },
+    "date": "Дата",
+    "time": "Время",
+    "location": "Местоположение",
+    "price": "Цена",
+    "bookingReference": "Номер бронирования",
+    "cancel": "Отменить",
+    "cancelConfirmTitle": "Отмена бронирования",
+    "cancelConfirmMessage": "Вы уверены, что хотите отменить это бронирование?",
+    "cancelSuccess": "Бронирование отменено",
+    "cancelError": "Не удалось отменить бронирование",
+    "dialogNo": "Нет",
+    "review": "Оставить отзыв",
+    "rating": "Оценка",
+    "comment": "Комментарий",
+    "submitReview": "Отправить отзыв",
+    "reviewSuccess": "Спасибо за ваш отзыв!",
+    "reviewError": "Не удалось отправить отзыв",
+    "noBookings": "У вас пока нет бронирований",
+    "loadMore": "Загрузить ещё"
   }
 }
