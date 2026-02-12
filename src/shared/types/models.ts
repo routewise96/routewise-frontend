@@ -59,6 +59,12 @@ export interface Comment {
   replies?: Comment[]
 }
 
+export interface NotificationTarget {
+  type: "post" | "user" | "booking" | "place"
+  id: string
+  title?: string
+}
+
 export interface Notification {
   id: number
   type: string
@@ -68,6 +74,7 @@ export interface Notification {
   createdAt: string
   data?: Record<string, unknown>
   actor?: User
+  target?: NotificationTarget
 }
 
 export interface Destination {

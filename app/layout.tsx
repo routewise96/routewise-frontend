@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { AuthProvider } from "@/features/auth"
 import { QueryProvider } from "@/app/providers/QueryProvider"
 import { I18nProvider } from "@/app/providers/I18nProvider"
+import { WebSocketProvider } from "@/app/providers/WebSocketProvider"
 
 import "./globals.css"
 
@@ -31,10 +32,12 @@ export default function RootLayout({
       <body className={`${_inter.variable} font-sans antialiased`}>
         <QueryProvider>
           <I18nProvider>
-          <AuthProvider>
-            {children}
-            <Toaster richColors position="top-right" />
-          </AuthProvider>
+            <AuthProvider>
+              <WebSocketProvider>
+                {children}
+                <Toaster richColors position="top-right" />
+              </WebSocketProvider>
+            </AuthProvider>
           </I18nProvider>
         </QueryProvider>
       </body>

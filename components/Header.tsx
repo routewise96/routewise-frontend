@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useAuth, LoginDialog, RegisterDialog } from "@/features/auth"
 import { CreatePostDialog } from "@/features/create-post"
+import { NotificationBell } from "@/features/notifications"
 import { Button } from "@/components/ui/button"
 
 interface HeaderProps {
@@ -87,13 +88,17 @@ export function Header({ onPostCreated }: HeaderProps = {}) {
               </button>
             )}
 
-            <Link
-              href="/notifications"
-              className="relative flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              aria-label="Уведомления"
-            >
-              <Bell className="h-5 w-5" />
-            </Link>
+            {user ? (
+              <NotificationBell />
+            ) : (
+              <Link
+                href="/notifications"
+                className="relative flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                aria-label="Уведомления"
+              >
+                <Bell className="h-5 w-5" />
+              </Link>
+            )}
 
             {/* Auth: avatar or login button */}
             {isLoading ? (

@@ -144,5 +144,25 @@
     "loading": "Loading...",
     "errorLike": "Could not update like",
     "errorSave": "Could not update save"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllAsRead": "Mark all as read",
+    "viewAll": "All notifications",
+    "loadMore": "Load more",
+    "empty": "No new notifications",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "earlier": "Earlier",
+    "types": {
+      "like": "liked your post",
+      "comment": "commented",
+      "follow": "followed you",
+      "repost": "reposted",
+      "mention": "mentioned you",
+      "system": "system notification",
+      "geo": "user nearby",
+      "ai": "recommendation"
+    }
   }
 }
