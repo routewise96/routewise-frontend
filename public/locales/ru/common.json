@@ -364,5 +364,46 @@
     "resolveWarn": "Предупредить",
     "dismiss": "Отклонить",
     "resolved": "Жалоба обработана"
+  },
+  "settings": {
+    "title": "Настройки",
+    "profile": "Профиль",
+    "security": "Безопасность",
+    "notifications": "Уведомления",
+    "language": "Язык",
+    "save": "Сохранить",
+    "saved": "Изменения сохранены",
+    "profileTab": {
+      "avatar": "Аватар",
+      "name": "Имя",
+      "bio": "О себе",
+      "website": "Сайт",
+      "social": "Социальные сети",
+      "updateSuccess": "Профиль обновлён"
+    },
+    "securityTab": {
+      "currentPassword": "Текущий пароль",
+      "newPassword": "Новый пароль",
+      "confirmPassword": "Подтверждение",
+      "changePassword": "Сменить пароль",
+      "passwordChanged": "Пароль успешно изменён",
+      "passwordError": "Не удалось изменить пароль",
+      "2faTitle": "Двухфакторная аутентификация",
+      "2faPlaceholder": "Скоро будет доступно"
+    },
+    "notificationsTab": {
+      "like": "Лайки",
+      "comment": "Комментарии",
+      "follow": "Подписки",
+      "repost": "Репосты",
+      "mention": "Упоминания",
+      "geo": "Гео-встречи",
+      "ai": "AI-рекомендации",
+      "system": "Системные"
+    },
+    "languageTab": {
+      "ru": "Русский",
+      "en": "English"
+    }
   }
 }

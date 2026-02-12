@@ -381,5 +381,46 @@
     "resolveWarn": "Warn",
     "dismiss": "Dismiss",
     "resolved": "Report resolved"
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "security": "Security",
+    "notifications": "Notifications",
+    "language": "Language",
+    "save": "Save",
+    "saved": "Changes saved",
+    "profileTab": {
+      "avatar": "Avatar",
+      "name": "Name",
+      "bio": "Bio",
+      "website": "Website",
+      "social": "Social",
+      "updateSuccess": "Profile updated"
+    },
+    "securityTab": {
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm",
+      "changePassword": "Change password",
+      "passwordChanged": "Password changed successfully",
+      "passwordError": "Could not change password",
+      "2faTitle": "Two-factor authentication",
+      "2faPlaceholder": "Coming soon"
+    },
+    "notificationsTab": {
+      "like": "Likes",
+      "comment": "Comments",
+      "follow": "Follows",
+      "repost": "Reposts",
+      "mention": "Mentions",
+      "geo": "Geo meetups",
+      "ai": "AI recommendations",
+      "system": "System"
+    },
+    "languageTab": {
+      "ru": "Russian",
+      "en": "English"
+    }
   }
 }

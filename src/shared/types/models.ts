@@ -2,6 +2,18 @@
  * Бизнес-модели RouteWise (shared/types)
  */
 
+/** User notification preferences */
+export interface NotificationSettings {
+  like: boolean
+  comment: boolean
+  follow: boolean
+  repost: boolean
+  mention: boolean
+  geo: boolean
+  ai: boolean
+  system: boolean
+}
+
 export interface User {
   id: number
   username: string

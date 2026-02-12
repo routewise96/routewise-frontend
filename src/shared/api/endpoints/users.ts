@@ -1,6 +1,19 @@
 import apiClient from "../base"
 import type { User, PaginatedResponse } from "../../types/api"
-import type { Post } from "../../types/models"
+import type { Post, NotificationSettings } from "../../types/models"
+
+const isDev = typeof process !== "undefined" && process.env.NODE_ENV === "development"
+
+const mockNotificationSettings: NotificationSettings = {
+  like: true,
+  comment: true,
+  follow: true,
+  repost: true,
+  mention: true,
+  geo: false,
+  ai: true,
+  system: true,
+}
 
 export const usersApi = {
   getMe: (): Promise<User> => apiClient.get("/users/me").then((r) => r.data),
@@ -39,4 +52,22 @@ export const usersApi = {
       })
       .catch(() => [])
   },
+
+  getNotificationSettings: (): Promise<NotificationSettings> =>
+    apiClient.get("/users/me/notifications/settings").then((r) => r.data).catch((err) => {
+      if (isDev) {
+        console.warn("[MOCK] usersApi.getNotificationSettings called")
+        return mockNotificationSettings
+      }
+      return Promise.reject(err)
+    }),
+
+  updateNotificationSettings: (settings: Partial<NotificationSettings>): Promise<NotificationSettings> =>
+    apiClient.patch("/users/me/notifications/settings", settings).then((r) => r.data).catch((err) => {
+      if (isDev) {
+        console.warn("[MOCK] usersApi.updateNotificationSettings called")
+        return { ...mockNotificationSettings, ...settings }
+      }
+      return Promise.reject(err)
+    }),
 }
