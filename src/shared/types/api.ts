@@ -2,7 +2,7 @@
  * Типы ответов API (shared/types)
  */
 
-import type { User, Post, Comment, Notification, Destination, Booking } from "./models"
+import type { User, Post, Short, Comment, Notification, Destination, Booking } from "./models"
 
 export interface PaginatedResponse<T> {
   data: T[]
@@ -42,4 +42,4 @@ export interface RegisterData {
 
 export type ApiPaginated<T> = T[] | PaginatedResponse<T>
 
-export type { User, Post, Comment, Notification, Destination, Booking, Place } from "./models"
+export type { User, Post, Short, Comment, Notification, Destination, Booking, Place } from "./models"

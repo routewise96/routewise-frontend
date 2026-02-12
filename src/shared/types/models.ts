@@ -46,6 +46,30 @@ export interface Post {
   privacy?: "public" | "followers"
 }
 
+/** Short (vertical video, TikTok-like) */
+export interface Short {
+  id: number
+  authorId?: number
+  author?: User
+  username?: string
+  avatarUrl?: string
+  avatar_url?: string
+  videoUrl?: string
+  video_url?: string
+  caption?: string
+  likes?: number
+  likes_count?: number
+  comments?: number
+  comments_count?: number
+  liked?: boolean
+  is_liked?: boolean
+  saved?: boolean
+  is_saved?: boolean
+  timestamp?: string
+  created_at?: string
+  createdAt?: string
+}
+
 export interface Comment {
   id: number
   postId: number

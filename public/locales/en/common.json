@@ -48,7 +48,8 @@
     "search": "Search",
     "notifications": "Notifications",
     "map": "Map",
-    "bookings": "Bookings"
+    "bookings": "Bookings",
+    "shorts": "Shorts"
   },
   "profile": {
     "posts": "Posts",
@@ -190,5 +191,23 @@
     "placeUnsaved": "Place removed from saved",
     "meetRequestSent": "Meet request sent",
     "meetRequestError": "Failed to send meet request"
+  },
+  "shorts": {
+    "title": "Shorts",
+    "like": "Like",
+    "comment": "Comment",
+    "comments": "Comments",
+    "save": "Save",
+    "repost": "Repost",
+    "noShorts": "No shorts",
+    "error": "Failed to load shorts",
+    "noComments": "No comments yet",
+    "commentPlaceholder": "Write a comment...",
+    "send": "Send",
+    "errorLike": "Could not update like",
+    "errorSave": "Could not update save",
+    "repostSuccess": "Reposted",
+    "repostError": "Could not repost",
+    "loading": "Loading..."
   }
 }

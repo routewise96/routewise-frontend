@@ -1,6 +1,6 @@
 "use client"
 
-import { Home, Map, CalendarDays, User, Bell } from "lucide-react"
+import { Home, Map, Video, CalendarDays, User, Bell } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useTranslations } from "next-intl"
@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl"
 const BOTTOM_NAV_ITEMS = [
   { icon: Home, labelKey: "home", href: "/" },
   { icon: Map, labelKey: "map", href: "/map" },
+  { icon: Video, labelKey: "shorts", href: "/shorts" },
   { icon: CalendarDays, labelKey: "bookings", href: "/bookings" },
   { icon: User, labelKey: "profile", href: "/profile" },
   { icon: Bell, labelKey: "notifications", href: "/notifications" },

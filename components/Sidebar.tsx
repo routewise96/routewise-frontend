@@ -3,6 +3,7 @@
 import {
   Home,
   Map,
+  Video,
   CalendarDays,
   User,
   Settings,
@@ -17,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 const NAV_ITEMS = [
   { icon: Home, labelKey: "home", href: "/" },
   { icon: Map, labelKey: "map", href: "/map" },
+  { icon: Video, labelKey: "shorts", href: "/shorts" },
   { icon: CalendarDays, labelKey: "bookings", href: "/bookings" },
   { icon: User, labelKey: "profile", href: "/profile" },
   { icon: Settings, labelKey: "settings", href: "/settings" },

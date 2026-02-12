@@ -9,5 +9,6 @@ export {
   notificationsApi,
   searchApi,
   bookingsApi,
+  shortsApi,
 } from "./endpoints"
 export type { SearchResult } from "./endpoints"
