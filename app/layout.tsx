@@ -5,6 +5,7 @@ import { AuthProvider } from "@/features/auth"
 import { QueryProvider } from "@/app/providers/QueryProvider"
 import { I18nProvider } from "@/app/providers/I18nProvider"
 import { WebSocketProvider } from "@/app/providers/WebSocketProvider"
+import { GeoWebSocketProvider } from "@/app/providers/GeoWebSocketProvider"
 
 import "./globals.css"
 
@@ -34,8 +35,10 @@ export default function RootLayout({
           <I18nProvider>
             <AuthProvider>
               <WebSocketProvider>
-                {children}
-                <Toaster richColors position="top-right" />
+                <GeoWebSocketProvider>
+                  {children}
+                  <Toaster richColors position="top-right" />
+                </GeoWebSocketProvider>
               </WebSocketProvider>
             </AuthProvider>
           </I18nProvider>

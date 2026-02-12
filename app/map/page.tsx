@@ -1,18 +1,20 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { AppShell } from "@/components/AppShell"
 import { ProtectedRoute } from "@/features/auth"
+
+const MapPageContent = dynamic(
+  () =>
+    import("@/features/map/ui/MapPageContent").then((m) => m.MapPageContent),
+  { ssr: false }
+)
 
 export default function MapPage() {
   return (
     <ProtectedRoute>
       <AppShell>
-        <div className="flex min-h-[60vh] items-center justify-center px-4">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-foreground mb-4">Карта</h1>
-            <p className="text-muted-foreground">Скоро появится. Мы работаем над этим.</p>
-          </div>
-        </div>
+        <MapPageContent />
       </AppShell>
     </ProtectedRoute>
   )

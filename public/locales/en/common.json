@@ -164,5 +164,31 @@
       "geo": "user nearby",
       "ai": "recommendation"
     }
+  },
+  "map": {
+    "title": "Map",
+    "myLocation": "My location",
+    "satellite": "Satellite",
+    "map": "Map",
+    "searchPlace": "Search place...",
+    "save": "Save",
+    "unsave": "Remove from saved",
+    "route": "Route",
+    "meetRequest": "Suggest meeting",
+    "message": "Message",
+    "filters": "Filters",
+    "all": "All",
+    "cafe": "Cafes",
+    "restaurant": "Restaurants",
+    "hotel": "Hotels",
+    "attraction": "Attractions",
+    "noPlaces": "No places in this area",
+    "geoUnavailable": "Geolocation service temporarily unavailable",
+    "friends": "Friends on map",
+    "routeBuilt": "Route built",
+    "placeSaved": "Place saved",
+    "placeUnsaved": "Place removed from saved",
+    "meetRequestSent": "Meet request sent",
+    "meetRequestError": "Failed to send meet request"
   }
 }

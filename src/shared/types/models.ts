@@ -103,6 +103,27 @@ export interface GeoLocation {
   avatarUrl?: string
 }
 
+export interface GeoPoint {
+  lat: number
+  lng: number
+}
+
+export interface GeoUser {
+  id: string
+  name?: string
+  username: string
+  avatar?: string
+  location: GeoPoint
+  lastUpdate: string
+}
+
+export type PlaceCategory =
+  | "cafe"
+  | "restaurant"
+  | "hotel"
+  | "attraction"
+  | "other"
+
 export interface Place {
   id: string
   name: string
@@ -110,6 +131,18 @@ export interface Place {
   lat: number
   lng: number
   country?: string
+  category?: PlaceCategory
+  rating?: number
+  priceLevel?: number
+  image?: string
+  isSaved?: boolean
+}
+
+export interface Route {
+  distance: number
+  duration: number
+  geometry: [number, number][]
+  instructions: string[]
 }
 
 export interface PaginatedMeta {

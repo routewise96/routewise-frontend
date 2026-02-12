@@ -10,19 +10,21 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useTranslations } from "next-intl"
 import { useAuth } from "@/features/auth"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const NAV_ITEMS = [
-  { icon: Home, label: "Главная", href: "/" },
-  { icon: Map, label: "Карта", href: "/map" },
-  { icon: CalendarDays, label: "Бронирования", href: "/bookings" },
-  { icon: User, label: "Профиль", href: "/profile" },
-  { icon: Settings, label: "Настройки", href: "/settings" },
+  { icon: Home, labelKey: "home", href: "/" },
+  { icon: Map, labelKey: "map", href: "/map" },
+  { icon: CalendarDays, labelKey: "bookings", href: "/bookings" },
+  { icon: User, labelKey: "profile", href: "/profile" },
+  { icon: Settings, labelKey: "settings", href: "/settings" },
 ]
 
 export function Sidebar() {
   const pathname = usePathname()
+  const t = useTranslations("nav")
   const { user, isLoading } = useAuth()
 
   return (
@@ -32,7 +34,7 @@ export function Sidebar() {
           const isActive = pathname === item.href
           return (
             <Link
-              key={item.label}
+              key={item.href}
               href={item.href}
               className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
                 isActive
@@ -41,7 +43,7 @@ export function Sidebar() {
               }`}
             >
               <item.icon className="h-5 w-5" />
-              {item.label}
+              {t(item.labelKey)}
             </Link>
           )
         })}
