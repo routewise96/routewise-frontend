@@ -10,6 +10,7 @@ import {
   Settings,
   LogIn,
   Briefcase,
+  Shield,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -27,6 +28,7 @@ const NAV_ITEMS = [
   { icon: Settings, labelKey: "settings", href: "/settings" },
 ]
 const BUSINESS_NAV = { icon: Briefcase, labelKey: "business", href: "/business/dashboard" }
+const ADMIN_NAV = { icon: Shield, labelKey: "admin", href: "/admin/dashboard" }
 
 export function Sidebar() {
   const pathname = usePathname()
@@ -64,6 +66,19 @@ export function Sidebar() {
           >
             <BUSINESS_NAV.icon className="h-5 w-5" />
             {t(BUSINESS_NAV.labelKey)}
+          </Link>
+        )}
+        {user?.role === "admin" && (
+          <Link
+            href={ADMIN_NAV.href}
+            className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
+              pathname.startsWith("/admin")
+                ? "bg-primary/10 text-primary"
+                : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+            }`}
+          >
+            <ADMIN_NAV.icon className="h-5 w-5" />
+            {t(ADMIN_NAV.labelKey)}
           </Link>
         )}
       </nav>

@@ -12,5 +12,6 @@ export {
   shortsApi,
   aiApi,
   businessApi,
+  adminApi,
 } from "./endpoints"
-export type { SearchResult } from "./endpoints"
+export type { SearchResult, AdminUsersParams, AdminPostsParams, AdminReportsParams } from "./endpoints"

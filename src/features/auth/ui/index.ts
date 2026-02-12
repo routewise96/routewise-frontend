@@ -1,6 +1,7 @@
 export { AuthProvider, useAuth } from "./AuthProvider"
 export { ProtectedRoute } from "./ProtectedRoute"
 export { BusinessRoute } from "./BusinessRoute"
+export { AdminRoute } from "./AdminRoute"
 export { LoginForm } from "./LoginForm"
 export { RegisterForm } from "./RegisterForm"
 export { LoginDialog } from "./LoginDialog"

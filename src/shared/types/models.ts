@@ -213,6 +213,35 @@ export interface AnalyticsData {
   topServices: { name: string; count: number }[]
 }
 
+/** Moderation report */
+export type ReportStatus = "pending" | "resolved" | "dismissed"
+
+export interface Report {
+  id: string
+  type: string
+  targetId: string
+  reporterId: number
+  reason: string
+  description?: string
+  status: ReportStatus
+  createdAt: string
+  resolvedAt?: string
+  resolvedBy?: number
+}
+
+/** Admin dashboard stats */
+export interface AdminStats {
+  totalUsers: number
+  totalPosts: number
+  totalBookings: number
+  pendingReports: number
+  newUsersToday: number
+  newPostsToday?: number
+  activeUsersToday?: number
+  usersChart?: { date: string; count: number }[]
+  activityChart?: { date: string; count: number }[]
+}
+
 export interface GeoLocation {
   userId: number
   lat: number
