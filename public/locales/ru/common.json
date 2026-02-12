@@ -1,0 +1,23 @@
+{
+  "app": {
+    "name": "RouteWise",
+    "description": "Социальная сеть путешественников"
+  },
+  "auth": {
+    "login": "Войти",
+    "register": "Регистрация",
+    "logout": "Выйти",
+    "email": "Email",
+    "password": "Пароль",
+    "forgotPassword": "Забыли пароль?"
+  },
+  "nav": {
+    "home": "Главная",
+    "profile": "Профиль",
+    "settings": "Настройки",
+    "search": "Поиск",
+    "notifications": "Уведомления",
+    "map": "Карта",
+    "bookings": "Бронирования"
+  }
+}

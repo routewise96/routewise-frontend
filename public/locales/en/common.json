@@ -1,0 +1,23 @@
+{
+  "app": {
+    "name": "RouteWise",
+    "description": "Social network for travelers"
+  },
+  "auth": {
+    "login": "Log in",
+    "register": "Sign up",
+    "logout": "Log out",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?"
+  },
+  "nav": {
+    "home": "Home",
+    "profile": "Profile",
+    "settings": "Settings",
+    "search": "Search",
+    "notifications": "Notifications",
+    "map": "Map",
+    "bookings": "Bookings"
+  }
+}
