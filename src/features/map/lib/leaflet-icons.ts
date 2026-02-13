@@ -29,3 +29,10 @@ export const myPositionIcon = new L.Icon({
   shadowSize: [41, 41],
   className: "hue-rotate-[200deg] brightness-150",
 })
+
+export const storyIcon = new L.Icon({
+  iconUrl: "/icons/story-marker.svg",
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -28],
+})

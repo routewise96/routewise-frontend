@@ -1,6 +1,19 @@
 "use client"
 
-import { Home, Map, Video, Bot, CalendarDays, User, Bell, Briefcase, Shield } from "lucide-react"
+import {
+  Home,
+  Map,
+  Video,
+  Bot,
+  CalendarDays,
+  User,
+  Bell,
+  Briefcase,
+  Shield,
+  Radio,
+  MapPinned,
+  Route,
+} from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useTranslations } from "next-intl"
@@ -9,6 +22,9 @@ import { useAuth } from "@/features/auth"
 const BOTTOM_NAV_ITEMS = [
   { icon: Home, labelKey: "home", href: "/" },
   { icon: Map, labelKey: "map", href: "/map" },
+  { icon: MapPinned, labelKey: "stories", href: "/stories" },
+  { icon: Route, labelKey: "routes", href: "/routes" },
+  { icon: Radio, labelKey: "live", href: "/live" },
   { icon: Video, labelKey: "shorts", href: "/shorts" },
   { icon: Bot, labelKey: "assistant", href: "/assistant" },
   { icon: CalendarDays, labelKey: "bookings", href: "/bookings" },

@@ -18,9 +18,11 @@ import { fixLeafletDefaultIcon, myPositionIcon } from "../lib/leaflet-icons"
 import { FriendsLayer } from "./FriendsLayer"
 import { PlacesLayer } from "./PlacesLayer"
 import { RouteLayer } from "./RouteLayer"
+import { StoriesLayer } from "./StoriesLayer"
 import "leaflet/dist/leaflet.css"
 import "leaflet.markercluster/dist/MarkerCluster.css"
 import "leaflet.markercluster/dist/MarkerCluster.Default.css"
+import type { Story } from "@/shared/api"
 
 fixLeafletDefaultIcon()
 
@@ -62,6 +64,8 @@ interface MapViewProps {
   friends: GeoUser[]
   places: Place[]
   route: Route | null
+  stories?: Story[]
+  onStoryClick?: (story: Story) => void
   mapType: "map" | "satellite"
   onMoveEnd: (bbox: { minLat: number; minLng: number; maxLat: number; maxLng: number }) => void
   onMyLocation: () => void
@@ -81,6 +85,8 @@ export function MapView({
   friends,
   places,
   route,
+  stories,
+  onStoryClick,
   mapType,
   onMoveEnd,
   onMeetRequest,
@@ -118,6 +124,9 @@ export function MapView({
         onUnsave={onUnsavePlace}
         onBuildRoute={onBuildRoute}
       />
+      {stories && stories.length > 0 && (
+        <StoriesLayer stories={stories} onStoryClick={onStoryClick} />
+      )}
       <RouteLayer route={route} />
     </MapContainer>
   )
