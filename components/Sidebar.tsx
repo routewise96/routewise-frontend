@@ -14,6 +14,7 @@ import {
   Radio,
   MapPinned,
   Route,
+  PlusSquare,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -23,6 +24,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const NAV_ITEMS = [
   { icon: Home, labelKey: "home", href: "/" },
+  { icon: PlusSquare, labelKey: "createPost", href: "/create/post" },
   { icon: Map, labelKey: "map", href: "/map" },
   { icon: MapPinned, labelKey: "stories", href: "/stories" },
   { icon: Route, labelKey: "routes", href: "/routes" },
@@ -40,16 +42,18 @@ export function Sidebar() {
   const pathname = usePathname()
   const t = useTranslations("nav")
   const { user, isLoading } = useAuth()
+  const profileHref = user?.id ? `/profile/${user.id}` : "/profile"
 
   return (
     <aside className="hidden lg:flex lg:w-60 xl:w-64 flex-col fixed left-0 top-[57px] bottom-0 border-r border-border bg-background px-3 py-6">
       <nav className="flex flex-col gap-1">
         {NAV_ITEMS.map((item) => {
-          const isActive = pathname === item.href
+          const href = item.href === "/profile" ? profileHref : item.href
+          const isActive = pathname === href
           return (
             <Link
               key={item.href}
-              href={item.href}
+              href={href}
               className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
                 isActive
                   ? "bg-primary/10 text-primary"

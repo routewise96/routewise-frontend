@@ -121,7 +121,10 @@ export function Header({ onPostCreated }: HeaderProps = {}) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem asChild>
-                    <Link href="/profile" className="flex items-center gap-2 cursor-pointer">
+                    <Link
+                      href={user?.id ? `/profile/${user.id}` : "/profile"}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
                       <User className="h-4 w-4" />
                       Профиль
                     </Link>

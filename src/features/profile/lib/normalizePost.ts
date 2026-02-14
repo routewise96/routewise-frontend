@@ -8,6 +8,7 @@ export interface PostCardPost {
   location: string
   timestamp: string
   imageUrl?: string
+  imageUrls?: string[]
   caption: string
   hashtags: string[]
   likes: number
@@ -19,6 +20,15 @@ export interface PostCardPost {
 export function normalizePost(raw: ApiPost | Record<string, unknown>, fallbackUsername = ""): PostCardPost {
   const r = raw as Record<string, unknown>
   const author = r.author as Record<string, unknown> | undefined
+  const media =
+    (r.mediaUrls as string[]) ??
+    (r.media_urls as string[]) ??
+    (r.images as string[]) ??
+    (r.image_urls as string[]) ??
+    undefined
+  const imageUrl = (r.imageUrl as string) ?? (r.image_url as string)
+  const imageUrls = media && Array.isArray(media) ? media.filter(Boolean) : imageUrl ? [imageUrl] : undefined
+
   return {
     id: (r.id as number) ?? 0,
     authorId: (r.authorId as number) ?? (author?.id as number),
@@ -26,11 +36,12 @@ export function normalizePost(raw: ApiPost | Record<string, unknown>, fallbackUs
     avatarUrl: (r.avatarUrl as string) ?? (r.avatar_url as string) ?? (author?.avatarUrl as string) ?? (author?.avatar_url as string),
     location: (r.location as string) ?? "",
     timestamp: (r.timestamp as string) ?? (r.created_at as string) ?? (r.createdAt as string) ?? "",
-    imageUrl: (r.imageUrl as string) ?? (r.image_url as string),
+    imageUrl,
+    imageUrls,
     caption: (r.caption as string) ?? (r.text as string) ?? (r.content as string) ?? "",
     hashtags: (r.hashtags as string[]) ?? (r.tags as string[]) ?? [],
     likes: (r.likes as number) ?? (r.likes_count as number) ?? 0,
-    comments: (r.comments as number) ?? (r.comments_count as number) ?? 0,
+    comments: (r.comments as number) ?? (r.comments_count as number) ?? (r.commentsCount as number) ?? 0,
     liked: (r.liked as boolean) ?? (r.is_liked as boolean) ?? false,
     saved: (r.saved as boolean) ?? (r.is_saved as boolean) ?? false,
   }

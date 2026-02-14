@@ -41,6 +41,10 @@ export interface Post {
   content?: string
   imageUrl?: string
   image_url?: string
+  mediaUrls?: string[]
+  media_urls?: string[]
+  images?: string[]
+  image_urls?: string[]
   location?: string
   hashtags?: string[]
   tags?: string[]
@@ -48,6 +52,8 @@ export interface Post {
   likes_count?: number
   comments?: number
   comments_count?: number
+  commentsCount?: number
+  repostsCount?: number
   liked?: boolean
   is_liked?: boolean
   saved?: boolean

@@ -1,12 +1,13 @@
 "use client"
 
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { useTranslations } from "next-intl"
 import { ChevronDown, Loader2 } from "lucide-react"
 import { useFeed, useLike, useUnlike, useSave, useUnsave } from "../hooks"
 import { normalizePost } from "@/features/profile/lib/normalizePost"
 import { useAuthStore } from "@/shared/store"
 import { PostCard } from "./PostCard"
+import { CommentSection } from "@/features/comments"
 import { PostSkeleton } from "./PostSkeleton"
 import { EmptyFeed } from "./EmptyFeed"
 import { toast } from "sonner"
@@ -35,6 +36,7 @@ export function Feed({ onOpenLogin, onOpenRegister }: FeedProps) {
   const unlikeMutation = useUnlike()
   const saveMutation = useSave()
   const unsaveMutation = useUnsave()
+  const [openComments, setOpenComments] = useState<Set<number>>(new Set())
 
   const posts = useMemo(() => {
     if (!data?.pages) return []
@@ -71,6 +73,18 @@ export function Feed({ onOpenLogin, onOpenRegister }: FeedProps) {
         onError: () => toast.error(t("errorSave")),
       })
     }
+  }
+
+  const toggleComments = (postId: number) => {
+    setOpenComments((prev) => {
+      const next = new Set(prev)
+      if (next.has(postId)) {
+        next.delete(postId)
+      } else {
+        next.add(postId)
+      }
+      return next
+    })
   }
 
   if (isLoading) {
@@ -116,16 +130,23 @@ export function Feed({ onOpenLogin, onOpenRegister }: FeedProps) {
   return (
     <>
       <div className="flex flex-col gap-5">
-        {posts.map((post) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            isAuthor={user?.id === post.authorId}
-            onToggleLike={(id) => handleToggleLike(id, post.liked)}
-            onToggleSave={(id) => handleToggleSave(id, post.saved)}
-            onOpenLogin={!user ? onOpenLogin : undefined}
-          />
-        ))}
+        {posts.map((post) => {
+          const isOpen = openComments.has(post.id)
+          return (
+            <div key={post.id} className="space-y-3">
+              <PostCard
+                post={post}
+                isAuthor={user?.id === post.authorId}
+                onToggleLike={(id) => handleToggleLike(id, post.liked)}
+                onToggleSave={(id) => handleToggleSave(id, post.saved)}
+                onOpenLogin={!user ? onOpenLogin : undefined}
+                onToggleComments={() => toggleComments(post.id)}
+                commentsOpen={isOpen}
+              />
+              {isOpen && <CommentSection postId={post.id} />}
+            </div>
+          )
+        })}
       </div>
 
       {hasNextPage && (

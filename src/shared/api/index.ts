@@ -16,6 +16,10 @@ export {
   liveApi,
   storiesApi,
   routesApi,
+  mediaApi,
+  placesApi,
+  subscriptionsApi,
+  statusApi,
 } from "./endpoints"
 export type {
   SearchResult,
@@ -29,4 +33,11 @@ export type {
   Waypoint,
   RouteComment,
   CreateRoutePayload,
+  MediaFile,
+  PlaceResponse,
+  StatusResponse,
+  ServiceStatus,
+  KafkaLag,
+  StatusMetrics,
+  ServiceHealth,
 } from "./endpoints"

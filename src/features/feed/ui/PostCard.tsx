@@ -18,6 +18,13 @@ import { formatDistanceToNow } from "date-fns"
 import { ru, enUS } from "date-fns/locale"
 import { useTranslations, useLocale } from "next-intl"
 import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -32,6 +39,8 @@ interface PostCardProps {
   onToggleLike: (id: number) => void
   onToggleSave: (id: number) => void
   onOpenLogin?: () => void
+  onToggleComments?: () => void
+  commentsOpen?: boolean
 }
 
 function formatDate(timestamp: string, locale: string): string {
@@ -52,6 +61,8 @@ export function PostCard({
   onToggleLike,
   onToggleSave,
   onOpenLogin,
+  onToggleComments,
+  commentsOpen,
 }: PostCardProps) {
   const t = useTranslations("feed")
   const locale = useLocale()
@@ -72,6 +83,8 @@ export function PostCard({
     }
     onToggleSave(post.id)
   }
+
+  const mediaUrls = post.imageUrls?.length ? post.imageUrls : post.imageUrl ? [post.imageUrl] : []
 
   return (
     <article className="rounded-2xl border border-border bg-card overflow-hidden transition-colors hover:border-border/80">
@@ -140,26 +153,52 @@ export function PostCard({
         </div>
       </div>
 
-      {/* Post Image — click goes to post detail */}
-      <Link
-        href={`/post/${post.id}`}
-        className="block relative aspect-video w-full overflow-hidden bg-muted"
-      >
-        {post.imageUrl ? (
-          <Image
-            src={post.imageUrl}
-            alt={post.caption || "Post"}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 600px"
-            loading="lazy"
-          />
+      {/* Post Media */}
+      <div className="relative w-full overflow-hidden bg-muted">
+        {mediaUrls.length > 1 ? (
+          <Carousel opts={{ loop: true }} className="w-full">
+            <CarouselContent>
+              {mediaUrls.map((url, index) => (
+                <CarouselItem key={`${post.id}-media-${index}`}>
+                  <Link
+                    href={`/post/${post.id}`}
+                    className="block relative aspect-video w-full overflow-hidden bg-muted"
+                  >
+                    <Image
+                      src={url}
+                      alt={post.caption || "Post"}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 600px"
+                      loading="lazy"
+                    />
+                  </Link>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-2 bg-background/80 hover:bg-background" />
+            <CarouselNext className="right-2 bg-background/80 hover:bg-background" />
+          </Carousel>
+        ) : mediaUrls.length === 1 ? (
+          <Link
+            href={`/post/${post.id}`}
+            className="block relative aspect-video w-full overflow-hidden bg-muted"
+          >
+            <Image
+              src={mediaUrls[0]}
+              alt={post.caption || "Post"}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 600px"
+              loading="lazy"
+            />
+          </Link>
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-muted-foreground">
+          <div className="flex aspect-video w-full items-center justify-center text-muted-foreground">
             <ImageIcon className="h-12 w-12" />
           </div>
         )}
-      </Link>
+      </div>
 
       {/* Actions */}
       <div className="px-4 pt-3">
@@ -180,13 +219,27 @@ export function PostCard({
                 }`}
               />
             </button>
-            <Link
-              href={`/post/${post.id}`}
-              className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              aria-label={t("comment")}
-            >
-              <MessageCircle className="h-5 w-5" />
-            </Link>
+            {onToggleComments ? (
+              <button
+                onClick={onToggleComments}
+                className={`flex h-10 w-10 items-center justify-center rounded-xl transition-colors ${
+                  commentsOpen
+                    ? "text-primary"
+                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                }`}
+                aria-label={t("comment")}
+              >
+                <MessageCircle className="h-5 w-5" />
+              </button>
+            ) : (
+              <Link
+                href={`/post/${post.id}`}
+                className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                aria-label={t("comment")}
+              >
+                <MessageCircle className="h-5 w-5" />
+              </Link>
+            )}
             <button
               className="flex h-10 w-10 items-center justify-center rounded-xl text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
               aria-label={t("repost")}

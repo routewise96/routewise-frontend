@@ -1,6 +1,11 @@
 import apiClient from "../base"
 import type { Post, PaginatedResponse } from "../../types/api"
 
+export interface CreatePostData {
+  content: string
+  mediaUrls?: string[]
+}
+
 export const postsApi = {
   feed: (page = 1, limit = 10): Promise<PaginatedResponse<Post>> =>
     apiClient.get("/posts", { params: { page, limit } }).then((r) => r.data),
@@ -10,6 +15,9 @@ export const postsApi = {
 
   create: (formData: FormData): Promise<Post> =>
     apiClient.post("/posts", formData).then((r) => r.data),
+
+  createPost: (data: CreatePostData): Promise<Post> =>
+    apiClient.post("/posts", data).then((r) => r.data),
 
   like: (postId: string | number): Promise<{ likes: number }> =>
     apiClient.post(`/posts/${postId}/like`).then((r) => r.data),

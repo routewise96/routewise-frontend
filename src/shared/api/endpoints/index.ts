@@ -20,3 +20,16 @@ export { routesApi } from "./routes"
 export type { LiveStream, ChatMessage } from "./live"
 export type { Story } from "./stories"
 export type { UserRoute, Waypoint, RouteComment, CreateRoutePayload } from "./routes"
+export { mediaApi } from "./media"
+export type { MediaFile } from "./media"
+export { placesApi } from "./places"
+export type { PlaceResponse } from "./places"
+export { subscriptionsApi } from "./subscriptions"
+export { statusApi } from "./status"
+export type {
+  StatusResponse,
+  ServiceStatus,
+  KafkaLag,
+  StatusMetrics,
+  ServiceHealth,
+} from "./status"

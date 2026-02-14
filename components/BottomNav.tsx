@@ -13,6 +13,7 @@ import {
   Radio,
   MapPinned,
   Route,
+  PlusSquare,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -21,6 +22,7 @@ import { useAuth } from "@/features/auth"
 
 const BOTTOM_NAV_ITEMS = [
   { icon: Home, labelKey: "home", href: "/" },
+  { icon: PlusSquare, labelKey: "createPost", href: "/create/post" },
   { icon: Map, labelKey: "map", href: "/map" },
   { icon: MapPinned, labelKey: "stories", href: "/stories" },
   { icon: Route, labelKey: "routes", href: "/routes" },
@@ -38,17 +40,19 @@ export function BottomNav() {
   const pathname = usePathname()
   const t = useTranslations("nav")
   const { user } = useAuth()
+  const profileHref = user?.id ? `/profile/${user.id}` : "/profile"
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/80 backdrop-blur-xl lg:hidden">
       <div className="flex items-center justify-around px-2 py-2">
         {BOTTOM_NAV_ITEMS.map((item) => {
-          const isActive = pathname === item.href
+          const href = item.href === "/profile" ? profileHref : item.href
+          const isActive = pathname === href
           const label = t(item.labelKey)
           return (
             <Link
               key={item.href}
-              href={item.href}
+              href={href}
               className={`flex flex-col items-center gap-1 rounded-xl px-4 py-2 transition-colors ${
                 isActive
                   ? "text-primary"

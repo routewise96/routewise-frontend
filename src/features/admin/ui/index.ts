@@ -1,5 +1,6 @@
 export { AdminLayout } from "./AdminLayout"
 export { AdminDashboardPage } from "./AdminDashboardPage"
+export { AdminStatusPage } from "./AdminStatusPage"
 export { UsersPage } from "./UsersPage"
 export { PostsPage } from "./PostsPage"
 export { ReportsPage } from "./ReportsPage"
