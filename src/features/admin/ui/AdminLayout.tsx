@@ -3,12 +3,13 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useTranslations } from "next-intl"
-import { LayoutDashboard, Users, FileText, Flag, Activity } from "lucide-react"
+import { LayoutDashboard, Users, FileText, Flag, Activity, ListOrdered } from "lucide-react"
 import { AppShell } from "@/components/AppShell"
 
 const LINKS = [
   { href: "/admin/dashboard", labelKey: "dashboard", icon: LayoutDashboard },
   { href: "/admin/status", labelKey: "status", icon: Activity },
+  { href: "/admin/events", labelKey: "events", icon: ListOrdered },
   { href: "/admin/users", labelKey: "users", icon: Users },
   { href: "/admin/posts", labelKey: "posts", icon: FileText },
   { href: "/admin/reports", labelKey: "reports", icon: Flag },

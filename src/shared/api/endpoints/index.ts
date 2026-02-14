@@ -33,3 +33,5 @@ export type {
   StatusMetrics,
   ServiceHealth,
 } from "./status"
+export { eventsApi } from "./events"
+export type { EventRecord, EventsQuery } from "./events"

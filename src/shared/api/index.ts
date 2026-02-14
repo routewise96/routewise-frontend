@@ -20,6 +20,7 @@ export {
   placesApi,
   subscriptionsApi,
   statusApi,
+  eventsApi,
 } from "./endpoints"
 export type {
   SearchResult,
@@ -40,4 +41,6 @@ export type {
   KafkaLag,
   StatusMetrics,
   ServiceHealth,
+  EventRecord,
+  EventsQuery,
 } from "./endpoints"
